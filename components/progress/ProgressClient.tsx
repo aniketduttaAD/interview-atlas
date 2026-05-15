@@ -1,27 +1,25 @@
 'use client';
 
-import { useProgressStore } from '@/store/progressStore';
+import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
 import { exportAllProgress, importAllProgress } from '@/lib/storage/helpers';
-import { useUIStore } from '@/store/uiStore';
-import { Question } from '@/types/question';
 import { Download, Upload, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import clsx from 'clsx';
 import { AdminSection } from '@/types/admin';
 
-export function ProgressClient({ allQuestions }: { allQuestions: Question[] }) {
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
+import { sectionPath } from '@/lib/data/question-path';
+
+export function ProgressClient() {
+  const { questions: allQuestions, sections } = useOfflineLibrary();
   const { done, resetAll, resetSection } = useProgressStore();
-  const { sections } = useUIStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
+  const progressHydrated = useProgressHydrated();
 
-  useEffect(() => {
-    const handle = requestAnimationFrame(() => setIsMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  if (!isMounted) return <div className="p-8">Loading progress...</div>;
+  if (!progressHydrated) {
+    return <div className="p-8">Loading progress...</div>;
+  }
 
   const totalDone = done.length;
   const totalQuestions = allQuestions.length;
@@ -260,7 +258,7 @@ export function ProgressClient({ allQuestions }: { allQuestions: Question[] }) {
                       {section.key}
                     </div>
                     <Link
-                      href={`/${section.key}`}
+                      href={sectionPath(section.key)}
                       className="font-black text-lg tracking-tight hover:text-primary transition-colors block"
                     >
                       {section.label}

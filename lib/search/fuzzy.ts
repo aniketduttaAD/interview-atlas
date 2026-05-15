@@ -1,7 +1,8 @@
 import Fuse from 'fuse.js';
+import { questionPath } from '@/lib/data/question-path';
 import { Question } from '@/types/question';
 
-interface SearchResult extends Question {
+export interface SearchResult extends Question {
   href: string;
 }
 
@@ -30,7 +31,7 @@ export function searchQuestions(
     const q = result.item;
     return {
       ...q,
-      href: `/${q.section}/${q.category.toLowerCase().replace(/\s+/g, '-')}/${q.slug}`,
+      href: questionPath(q),
     };
   });
 }

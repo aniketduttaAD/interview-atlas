@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Question } from '@/types/question';
-import { useUIStore } from '@/store/uiStore';
+import { useEffect, useMemo, useState } from 'react';
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
 import { QuestionCard } from '@/components/question/QuestionCard';
 import { useFilterStore } from '@/store/filterStore';
 import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
@@ -12,11 +11,14 @@ import { cn } from '@/lib/utils';
 
 interface SectionClientProps {
   sectionKey: string;
-  questions: Question[];
 }
 
-export function SectionClient({ sectionKey, questions }: SectionClientProps) {
-  const { sections } = useUIStore();
+export function SectionClient({ sectionKey }: SectionClientProps) {
+  const { questions: allQuestions, sections } = useOfflineLibrary();
+  const questions = useMemo(
+    () => allQuestions.filter((q) => q.section === sectionKey),
+    [allQuestions, sectionKey],
+  );
   const sectionMeta = (sections as AdminSection[]).find(
     (s) => s.key === sectionKey,
   );

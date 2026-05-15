@@ -1,16 +1,27 @@
 import withSerwistInit from '@serwist/next';
 import type { NextConfig } from 'next';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+
+function loadOfflinePrecacheEntries(): { url: string; revision: string }[] {
+  const buildId = process.env.NEXT_BUILD_ID ?? randomUUID();
+  try {
+    const routesPath = join(
+      process.cwd(),
+      'lib/data/offline-routes.generated.json',
+    );
+    const routes = JSON.parse(readFileSync(routesPath, 'utf8')) as string[];
+    return routes.map((url) => ({ url, revision: buildId }));
+  } catch {
+    return [{ url: '/~offline', revision: buildId }];
+  }
+}
 
 const withSerwist = withSerwistInit({
   swSrc: 'app/sw.ts',
   swDest: 'public/sw.js',
-  additionalPrecacheEntries: [
-    {
-      url: '/~offline',
-      revision: randomUUID(),
-    },
-  ],
+  additionalPrecacheEntries: loadOfflinePrecacheEntries(),
   disable: process.env.NODE_ENV === 'development',
 });
 

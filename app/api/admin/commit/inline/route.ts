@@ -25,8 +25,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: unknown) {
     console.error('Commit failed:', error);
-    const message =
-      error instanceof Error ? error.message : 'Unknown error';
+    const message = error instanceof Error ? error.message : 'Unknown error';
     const status = message.includes('not available on Vercel') ? 503 : 500;
     return NextResponse.json({ error: message }, { status });
   }

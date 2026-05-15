@@ -3,7 +3,8 @@
 import { Question } from '@/types/question';
 import { MarkdownRenderer } from '@/components/markdown/MarkdownRenderer';
 import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
-import { useUIStore } from '@/store/uiStore';
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
+import { sectionPath } from '@/lib/data/question-path';
 import Link from 'next/link';
 import { useMemo, useEffect } from 'react';
 import {
@@ -21,6 +22,7 @@ import clsx from 'clsx';
 import { difficultyBadgeClass } from '@/lib/utils';
 import { AIPanel } from '@/components/ai/AIPanel';
 import { useAIStore } from '@/store/aiStore';
+import { useOnlineStatus } from '@/lib/hooks/useOnlineStatus';
 import { AdminSection } from '@/types/admin';
 
 interface QuestionDetailProps {
@@ -48,8 +50,9 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
     toggleBookmark,
     addRecent,
   } = useProgressStore();
-  const { sections } = useUIStore();
+  const { sections } = useOfflineLibrary();
   const { openPanel, panelOpen, closePanel } = useAIStore();
+  const online = useOnlineStatus();
   const sectionMeta = (sections as AdminSection[]).find(
     (s) => s.key === question.section,
   );
@@ -69,6 +72,10 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
   useEffect(() => {
     addRecent(question.id);
   }, [question.id, addRecent]);
+
+  useEffect(() => {
+    if (!online && panelOpen) closePanel();
+  }, [online, panelOpen, closePanel]);
 
   const toggleDone = () =>
     done ? unmarkDone(question.id) : markDone(question.id);
@@ -142,7 +149,7 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
               className="hidden min-w-0 items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground md:flex"
             >
               <Link
-                href={`/${question.section}`}
+                href={sectionPath(question.section)}
                 className="hover:text-foreground"
               >
                 {sectionLabel}
@@ -152,7 +159,7 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
             </nav>
 
             <Link
-              href={`/${question.section}`}
+              href={sectionPath(question.section)}
               className="inline-flex min-w-0 items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground md:hidden"
             >
               <ArrowLeft size={14} className="shrink-0" />
@@ -227,25 +234,27 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
         </article>
       </main>
 
-      <div
-        className={clsx(
-          'fixed z-30 left-0 border-t bg-background/95 backdrop-blur-md',
-          'bottom-[calc(3.25rem+env(safe-area-inset-bottom,0px))] md:bottom-0',
-          panelOpen ? 'right-0 sm:right-[400px] md:right-[450px]' : 'right-0',
-          panelOpen && 'max-sm:hidden',
-        )}
-      >
+      {online && (
         <div
           className={clsx(
-            CONTENT_WIDTH,
-            'mx-auto flex justify-end px-4 py-2 sm:px-6 lg:px-8',
+            'fixed z-30 left-0 border-t bg-background/95 backdrop-blur-md',
+            'bottom-[calc(3.25rem+env(safe-area-inset-bottom,0px))] md:bottom-0',
+            panelOpen ? 'right-0 sm:right-[400px] md:right-[450px]' : 'right-0',
+            panelOpen && 'max-sm:hidden',
           )}
         >
-          {askAiButton}
+          <div
+            className={clsx(
+              CONTENT_WIDTH,
+              'mx-auto flex justify-end px-4 py-2 sm:px-6 lg:px-8',
+            )}
+          >
+            {askAiButton}
+          </div>
         </div>
-      </div>
+      )}
 
-      {panelOpen && (
+      {online && panelOpen && (
         <>
           <div
             className="fixed inset-0 z-[55] bg-background/40 backdrop-blur-md sm:hidden"

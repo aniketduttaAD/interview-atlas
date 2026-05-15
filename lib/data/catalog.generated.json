@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T19:31:06.597Z",
+  "generatedAt": "2026-05-15T19:51:42.750Z",
   "sections": [
     {
       "key": "ai",
@@ -88,15 +88,8 @@
       "slug": "implementing-worker-pool",
       "difficulty": "medium",
       "pattern": "Concurrency",
-      "companies": [
-        "Uber",
-        "Netflix"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "Worker Pool"
-      ],
+      "companies": ["Uber", "Netflix"],
+      "tags": ["Concurrency", "Go", "Worker Pool"],
       "markdownPath": "golang/concurrency-patterns/implementing-worker-pool.md",
       "frequency": "medium",
       "addedAt": "2026-03-15",
@@ -110,15 +103,8 @@
       "slug": "rate-limiter-design",
       "difficulty": "medium",
       "pattern": "Concurrency",
-      "companies": [
-        "Stripe",
-        "Facebook"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "Rate Limiter"
-      ],
+      "companies": ["Stripe", "Facebook"],
+      "tags": ["Concurrency", "Go", "Rate Limiter"],
       "markdownPath": "golang/concurrency-patterns/rate-limiter-design.md",
       "frequency": "medium",
       "addedAt": "2026-03-15",
@@ -132,15 +118,8 @@
       "slug": "concurrent-file-processor",
       "difficulty": "hard",
       "pattern": "Concurrency",
-      "companies": [
-        "Microsoft",
-        "Spotify"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "File Processing"
-      ],
+      "companies": ["Microsoft", "Spotify"],
+      "tags": ["Concurrency", "Go", "File Processing"],
       "markdownPath": "golang/concurrency-patterns/concurrent-file-processor.md",
       "frequency": "low",
       "addedAt": "2026-03-15",
@@ -154,15 +133,8 @@
       "slug": "goroutines-vs-os-threads",
       "difficulty": "medium",
       "pattern": "Concurrency",
-      "companies": [
-        "Google",
-        "Facebook"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "Multithreading"
-      ],
+      "companies": ["Google", "Facebook"],
+      "tags": ["Concurrency", "Go", "Multithreading"],
       "markdownPath": "golang/concurrency/goroutines-vs-os-threads.md",
       "frequency": "high",
       "addedAt": "2026-03-15",
@@ -176,15 +148,8 @@
       "slug": "channels-in-go",
       "difficulty": "medium",
       "pattern": "Message Passing",
-      "companies": [
-        "Amazon",
-        "Netflix"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "Channels"
-      ],
+      "companies": ["Amazon", "Netflix"],
+      "tags": ["Concurrency", "Go", "Channels"],
       "markdownPath": "golang/concurrency/channels-in-go.md",
       "frequency": "very-high",
       "addedAt": "2026-03-15",
@@ -198,15 +163,8 @@
       "slug": "select-statement-usage",
       "difficulty": "medium",
       "pattern": "Non-blocking IO",
-      "companies": [
-        "Microsoft",
-        "Uber"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "Select"
-      ],
+      "companies": ["Microsoft", "Uber"],
+      "tags": ["Concurrency", "Go", "Select"],
       "markdownPath": "golang/concurrency/select-statement-usage.md",
       "frequency": "high",
       "addedAt": "2026-03-15",
@@ -220,15 +178,8 @@
       "slug": "waitgroups-synchronization",
       "difficulty": "easy",
       "pattern": "Concurrency control",
-      "companies": [
-        "Apple",
-        "Stripe"
-      ],
-      "tags": [
-        "synchronization",
-        "concurrency",
-        "parallelism"
-      ],
+      "companies": ["Apple", "Stripe"],
+      "tags": ["synchronization", "concurrency", "parallelism"],
       "markdownPath": "golang/concurrency/waitgroups-synchronization.md",
       "frequency": "high",
       "addedAt": "2023-10-04",
@@ -242,15 +193,8 @@
       "slug": "ticker-vs-timer",
       "difficulty": "easy",
       "pattern": "Concurrency",
-      "companies": [
-        "Tesla",
-        "Airbnb"
-      ],
-      "tags": [
-        "timer",
-        "ticker",
-        "time management"
-      ],
+      "companies": ["Tesla", "Airbnb"],
+      "tags": ["timer", "ticker", "time management"],
       "markdownPath": "golang/concurrency/ticker-vs-timer.md",
       "frequency": "medium",
       "addedAt": "2023-10-04",
@@ -264,15 +208,8 @@
       "slug": "context-propagation",
       "difficulty": "hard",
       "pattern": "Context Management",
-      "companies": [
-        "Twitter",
-        "Google"
-      ],
-      "tags": [
-        "Context",
-        "Concurrency",
-        "Go"
-      ],
+      "companies": ["Twitter", "Google"],
+      "tags": ["Context", "Concurrency", "Go"],
       "markdownPath": "golang/context-management/context-propagation.md",
       "frequency": "high",
       "addedAt": "2026-03-15",
@@ -286,15 +223,8 @@
       "slug": "go-memory-model",
       "difficulty": "hard",
       "pattern": "Memory and concurrency",
-      "companies": [
-        "Google",
-        "Netflix"
-      ],
-      "tags": [
-        "memory",
-        "concurrency",
-        "runtime"
-      ],
+      "companies": ["Google", "Netflix"],
+      "tags": ["memory", "concurrency", "runtime"],
       "markdownPath": "golang/core/go-memory-model.md",
       "frequency": "medium",
       "addedAt": "2023-10-04",
@@ -308,15 +238,8 @@
       "slug": "goroutine-leaks",
       "difficulty": "medium",
       "pattern": "Concurrency",
-      "companies": [
-        "Amazon",
-        "Uber"
-      ],
-      "tags": [
-        "goroutines",
-        "leaks",
-        "debugging"
-      ],
+      "companies": ["Amazon", "Uber"],
+      "tags": ["goroutines", "leaks", "debugging"],
       "markdownPath": "golang/core/goroutine-leaks.md",
       "frequency": "high",
       "addedAt": "2023-10-04",
@@ -330,15 +253,8 @@
       "slug": "error-handling-patterns",
       "difficulty": "medium",
       "pattern": "Error Handling",
-      "companies": [
-        "Facebook",
-        "Stripe"
-      ],
-      "tags": [
-        "Error",
-        "Go",
-        "Patterns"
-      ],
+      "companies": ["Facebook", "Stripe"],
+      "tags": ["Error", "Go", "Patterns"],
       "markdownPath": "golang/error-handling/error-handling-patterns.md",
       "frequency": "high",
       "addedAt": "2026-03-15",
@@ -352,15 +268,8 @@
       "slug": "error-wrapping-techniques",
       "difficulty": "medium",
       "pattern": "Error handling",
-      "companies": [
-        "Shopify",
-        "Dropbox"
-      ],
-      "tags": [
-        "error handling",
-        "wrapping",
-        "code quality"
-      ],
+      "companies": ["Shopify", "Dropbox"],
+      "tags": ["error handling", "wrapping", "code quality"],
       "markdownPath": "golang/core/error-wrapping-techniques.md",
       "frequency": "medium",
       "addedAt": "2023-10-04",
@@ -374,15 +283,8 @@
       "slug": "implicit-interfaces",
       "difficulty": "medium",
       "pattern": "Interface Design",
-      "companies": [
-        "Meta",
-        "Amazon"
-      ],
-      "tags": [
-        "Interfaces",
-        "Go",
-        "Design"
-      ],
+      "companies": ["Meta", "Amazon"],
+      "tags": ["Interfaces", "Go", "Design"],
       "markdownPath": "golang/interfaces/implicit-interfaces.md",
       "frequency": "medium",
       "addedAt": "2026-03-15",
@@ -396,15 +298,8 @@
       "slug": "go-garbage-collector",
       "difficulty": "hard",
       "pattern": "Memory Management",
-      "companies": [
-        "Google",
-        "Microsoft"
-      ],
-      "tags": [
-        "Memory",
-        "Go",
-        "Garbage Collector"
-      ],
+      "companies": ["Google", "Microsoft"],
+      "tags": ["Memory", "Go", "Garbage Collector"],
       "markdownPath": "golang/memory-management/go-garbage-collector.md",
       "frequency": "high",
       "addedAt": "2026-03-15",
@@ -418,15 +313,8 @@
       "slug": "introduction-to-grpc-in-go",
       "difficulty": "medium",
       "pattern": "Networking",
-      "companies": [
-        "Google",
-        "Amazon"
-      ],
-      "tags": [
-        "Networking",
-        "Go",
-        "gRPC"
-      ],
+      "companies": ["Google", "Amazon"],
+      "tags": ["Networking", "Go", "gRPC"],
       "markdownPath": "golang/networking/introduction-to-grpc-in-go.md",
       "frequency": "high",
       "addedAt": "2026-03-15",
@@ -440,15 +328,8 @@
       "slug": "circuit-breaker-pattern",
       "difficulty": "hard",
       "pattern": "Resilience",
-      "companies": [
-        "Microsoft",
-        "Twitter"
-      ],
-      "tags": [
-        "circuit breaker",
-        "resiliency",
-        "patterns"
-      ],
+      "companies": ["Microsoft", "Twitter"],
+      "tags": ["circuit breaker", "resiliency", "patterns"],
       "markdownPath": "golang/patterns/circuit-breaker-pattern.md",
       "frequency": "medium",
       "addedAt": "2023-10-04",
@@ -462,15 +343,8 @@
       "slug": "bulkhead-pattern",
       "difficulty": "medium",
       "pattern": "Resilience",
-      "companies": [
-        "Netflix",
-        "LinkedIn"
-      ],
-      "tags": [
-        "bulkhead",
-        "isolation",
-        "resiliency"
-      ],
+      "companies": ["Netflix", "LinkedIn"],
+      "tags": ["bulkhead", "isolation", "resiliency"],
       "markdownPath": "golang/patterns/bulkhead-pattern.md",
       "frequency": "low",
       "addedAt": "2023-10-04",
@@ -484,15 +358,8 @@
       "slug": "fan-out-fan-in",
       "difficulty": "medium",
       "pattern": "Concurrency patterns",
-      "companies": [
-        "Google",
-        "Meta"
-      ],
-      "tags": [
-        "fan-out",
-        "fan-in",
-        "concurrency"
-      ],
+      "companies": ["Google", "Meta"],
+      "tags": ["fan-out", "fan-in", "concurrency"],
       "markdownPath": "golang/patterns/fan-out-fan-in.md",
       "frequency": "high",
       "addedAt": "2023-10-04",
@@ -506,15 +373,8 @@
       "slug": "debounce-throttle-patterns",
       "difficulty": "medium",
       "pattern": "Optimization patterns",
-      "companies": [
-        "Atlassian",
-        "GitHub"
-      ],
-      "tags": [
-        "debounce",
-        "throttle",
-        "optimization"
-      ],
+      "companies": ["Atlassian", "GitHub"],
+      "tags": ["debounce", "throttle", "optimization"],
       "markdownPath": "golang/patterns/debounce-throttle-patterns.md",
       "frequency": "medium",
       "addedAt": "2023-10-04",
@@ -528,15 +388,8 @@
       "slug": "mutex-vs-rwmutex",
       "difficulty": "medium",
       "pattern": "Locking Mechanisms",
-      "companies": [
-        "Stripe",
-        "LinkedIn"
-      ],
-      "tags": [
-        "Concurrency",
-        "Go",
-        "Mutex"
-      ],
+      "companies": ["Stripe", "LinkedIn"],
+      "tags": ["Concurrency", "Go", "Mutex"],
       "markdownPath": "golang/synchronization/mutex-vs-rwmutex.md",
       "frequency": "medium",
       "addedAt": "2026-03-15",
@@ -550,15 +403,8 @@
       "slug": "condition-variables",
       "difficulty": "hard",
       "pattern": "Synchronization",
-      "companies": [
-        "IBM",
-        "Pinterest"
-      ],
-      "tags": [
-        "condition variables",
-        "synchronization",
-        "concurrency"
-      ],
+      "companies": ["IBM", "Pinterest"],
+      "tags": ["condition variables", "synchronization", "concurrency"],
       "markdownPath": "golang/synchronization/condition-variables.md",
       "frequency": "low",
       "addedAt": "2023-10-04",
@@ -572,15 +418,8 @@
       "slug": "graceful-shutdown-in-go",
       "difficulty": "medium",
       "pattern": "System",
-      "companies": [
-        "Google",
-        "Amazon"
-      ],
-      "tags": [
-        "System",
-        "Go",
-        "Shutdown"
-      ],
+      "companies": ["Google", "Amazon"],
+      "tags": ["System", "Go", "Shutdown"],
       "markdownPath": "golang/system-patterns/graceful-shutdown-in-go.md",
       "frequency": "medium",
       "addedAt": "2026-03-15",
@@ -594,15 +433,8 @@
       "slug": "circuit-breaker-go",
       "difficulty": "hard",
       "pattern": "Fault tolerance",
-      "companies": [
-        "AWS",
-        "Azure"
-      ],
-      "tags": [
-        "circuit breaker",
-        "fault tolerance",
-        "resilience"
-      ],
+      "companies": ["AWS", "Azure"],
+      "tags": ["circuit breaker", "fault tolerance", "resilience"],
       "markdownPath": "golang/system/circuit-breaker-go.md",
       "frequency": "medium",
       "addedAt": "2023-10-04",
@@ -616,15 +448,8 @@
       "slug": "bulkhead-pattern-go",
       "difficulty": "medium",
       "pattern": "Fault isolation",
-      "companies": [
-        "Salesforce",
-        "Slack"
-      ],
-      "tags": [
-        "bulkhead",
-        "fault isolation",
-        "resilience"
-      ],
+      "companies": ["Salesforce", "Slack"],
+      "tags": ["bulkhead", "fault isolation", "resilience"],
       "markdownPath": "golang/system/bulkhead-pattern-go.md",
       "frequency": "low",
       "addedAt": "2023-10-04",

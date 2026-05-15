@@ -8,14 +8,14 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { useAppCatalog } from '@/lib/data/use-app-catalog';
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
 import { OfflineIndicator } from './OfflineIndicator';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
   const { setSearchOpen, setSections } = useUIStore();
-  const { sections } = useAppCatalog();
+  const { sections } = useOfflineLibrary();
 
   useEffect(() => {
     setSections(sections);

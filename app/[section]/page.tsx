@@ -1,4 +1,3 @@
-import { getSectionData } from '@/lib/data/loader';
 import { SectionKey } from '@/types/question';
 import { getSectionsServer } from '@/lib/data/sections-server';
 import { SectionClient } from '@/components/section/SectionClient';
@@ -29,7 +28,5 @@ export default async function SectionPage({ params }: PageProps) {
     notFound();
   }
 
-  const questions = await getSectionData(sectionKey);
-
-  return <SectionClient sectionKey={sectionKey} questions={questions} />;
+  return <SectionClient sectionKey={sectionKey} />;
 }

@@ -3,5 +3,6 @@ export const STORAGE_KEYS = {
   FILTERS: 'prephub:filters',
   UI: 'prephub:ui',
   AI_HIST: 'prephub:ai-history',
-  CATALOG: 'prephub:catalog',
+  /** Full catalog + markdown (single offline library). */
+  OFFLINE_LIBRARY: 'prephub:offline-library',
 } as const;

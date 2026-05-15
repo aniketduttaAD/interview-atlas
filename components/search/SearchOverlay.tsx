@@ -1,18 +1,21 @@
 'use client';
 
 import { useUIStore } from '@/store/uiStore';
-import { useEffect, useState, useMemo } from 'react';
-import { useAppCatalog } from '@/lib/data/use-app-catalog';
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
 import { Command } from 'cmdk';
 import { useRouter } from 'next/navigation';
 import { Search, FileText } from 'lucide-react';
 import { createSearchIndex, searchQuestions } from '@/lib/search/fuzzy';
+import { questionPath } from '@/lib/data/question-path';
 import { AdminSection } from '@/types/admin';
+import type { Question } from '@/types/question';
+import { cn } from '@/lib/utils';
 
 export function SearchOverlay() {
-  const { searchOpen, setSearchOpen, sections } = useUIStore();
+  const { searchOpen, setSearchOpen } = useUIStore();
   const [query, setQuery] = useState('');
-  const { questions: allQuestions } = useAppCatalog();
+  const { questions: allQuestions, sections } = useOfflineLibrary();
   const router = useRouter();
 
   const searchIndex = useMemo(
@@ -24,6 +27,16 @@ export function SearchOverlay() {
     if (!query.trim()) return [];
     return searchQuestions(searchIndex, query).slice(0, 8);
   }, [query, searchIndex]);
+
+  const navigateToQuestion = useCallback(
+    (q: Question) => {
+      const path = questionPath(q);
+      setSearchOpen(false);
+      setQuery('');
+      router.push(path);
+    },
+    [router, setSearchOpen],
+  );
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -48,6 +61,7 @@ export function SearchOverlay() {
       <div className="relative w-full max-w-2xl bg-card border rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <Command
           label="Search commands"
+          shouldFilter={false}
           className="flex flex-col h-full max-h-[60vh]"
         >
           <div className="flex items-center px-4 border-b h-14 shrink-0">
@@ -85,10 +99,11 @@ export function SearchOverlay() {
                 {results.map((q) => (
                   <Command.Item
                     key={q.id}
-                    value={q.id}
-                    onSelect={() => {
-                      setSearchOpen(false);
-                      router.push(q.href);
+                    value={`${q.id}-${q.title}`}
+                    onSelect={() => navigateToQuestion(q)}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      navigateToQuestion(q);
                     }}
                     className="flex items-center gap-4 px-3 py-3 rounded-xl cursor-pointer hover:bg-secondary aria-selected:bg-secondary transition-all group"
                   >
@@ -132,8 +147,4 @@ export function SearchOverlay() {
       </div>
     </div>
   );
-}
-
-function cn(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(' ');
 }

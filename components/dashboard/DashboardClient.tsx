@@ -1,31 +1,19 @@
 'use client';
 
 import { useProgressStore } from '@/store/progressStore';
-import { useUIStore } from '@/store/uiStore';
 import Link from 'next/link';
 import { CheckCircle2, Bookmark, Flame, LayoutDashboard } from 'lucide-react';
 import { Question } from '@/types/question';
-import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-
 import { AdminSection } from '@/types/admin';
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
+import { useProgressHydrated } from '@/store/progressStore';
+import { questionPath, sectionPath } from '@/lib/data/question-path';
 
-export function DashboardClient({
-  allQuestions,
-}: {
-  allQuestions: Question[];
-}) {
+export function DashboardClient() {
   const { done, bookmarks, recent } = useProgressStore();
-  const { sections } = useUIStore();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    // Defer to avoid cascading render warning while maintaining hydration fix
-    const handle = requestAnimationFrame(() => setIsMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  if (!isMounted) return null;
+  const { questions: allQuestions, sections } = useOfflineLibrary();
+  const progressHydrated = useProgressHydrated();
 
   const totalQuestions = allQuestions.length;
 
@@ -33,8 +21,11 @@ export function DashboardClient({
     .map((id) => allQuestions.find((q) => q.id === id))
     .filter(Boolean) as Question[];
 
+  const doneCount = progressHydrated ? done.length : 0;
+  const bookmarkCount = progressHydrated ? bookmarks.length : 0;
+
   const progressPercent =
-    totalQuestions > 0 ? Math.round((done.length / totalQuestions) * 100) : 0;
+    totalQuestions > 0 ? Math.round((doneCount / totalQuestions) * 100) : 0;
 
   return (
     <div className="min-h-full pb-20">
@@ -68,7 +59,7 @@ export function DashboardClient({
                   </div>
                   <div className="w-px h-8 bg-border" />
                   <div className="text-center">
-                    <div className="text-lg font-bold">{done.length}</div>
+                    <div className="text-lg font-bold">{doneCount}</div>
                     <div className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground">
                       Modules
                     </div>
@@ -81,7 +72,7 @@ export function DashboardClient({
               {[
                 {
                   label: 'Bookmarks',
-                  value: bookmarks.length,
+                  value: bookmarkCount,
                   icon: Bookmark,
                   color: 'text-blue-500',
                 },
@@ -142,7 +133,7 @@ export function DashboardClient({
             return (
               <Link
                 key={section.key}
-                href={`/${section.key}`}
+                href={sectionPath(section.key)}
                 className="block group"
               >
                 <div className="h-full bg-card border rounded-[2rem] p-8 hover:border-primary hover:shadow-2xl hover:shadow-primary/5 transition-all flex flex-col justify-between overflow-hidden relative">
@@ -198,7 +189,7 @@ export function DashboardClient({
               {recentQuestions.slice(0, 3).map((q) => (
                 <Link
                   key={q.id}
-                  href={`/${q.section}/${q.category}/${q.slug}`}
+                  href={questionPath(q)}
                   className="flex items-center gap-5 p-6 bg-card hover:bg-card/80 border border-border/50 rounded-3xl transition-all group shadow-sm hover:shadow-md"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">

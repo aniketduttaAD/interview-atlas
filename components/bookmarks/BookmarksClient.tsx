@@ -1,25 +1,17 @@
 'use client';
 
-import { useProgressStore } from '@/store/progressStore';
+import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
 import { QuestionCard } from '@/components/question/QuestionCard';
 import { Question } from '@/types/question';
 import { Bookmark } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
 
-export function BookmarksClient({
-  allQuestions,
-}: {
-  allQuestions: Question[];
-}) {
+export function BookmarksClient() {
   const { bookmarks } = useProgressStore();
-  const [isMounted, setIsMounted] = useState(false);
+  const { questions: allQuestions } = useOfflineLibrary();
+  const progressHydrated = useProgressHydrated();
 
-  useEffect(() => {
-    const handle = requestAnimationFrame(() => setIsMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  if (!isMounted) {
+  if (!progressHydrated) {
     return (
       <div className="p-8 animate-pulse text-muted-foreground">
         Loading bookmarks...

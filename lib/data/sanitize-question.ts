@@ -1,11 +1,7 @@
 import type { Question } from '@/types/question';
 
 /** Fields that must not be written to data/*.json (admin UI / runtime only). */
-const STRIP_KEYS = new Set([
-  'markdownContent',
-  'contentStatus',
-  'content',
-]);
+const STRIP_KEYS = new Set(['markdownContent', 'contentStatus', 'content']);
 
 /** Normalize a question record before persisting to the content store (data/*.json). */
 export function sanitizeQuestionForStorage(

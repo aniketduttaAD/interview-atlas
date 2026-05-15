@@ -12,7 +12,7 @@ export function PwaRoot({ children }: { children: ReactNode }) {
       disable={isDev}
       register
       cacheOnNavigation
-      reloadOnOnline
+      reloadOnOnline={false}
     >
       {children}
     </SerwistProvider>

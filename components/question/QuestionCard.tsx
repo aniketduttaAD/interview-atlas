@@ -4,6 +4,7 @@ import { Question } from '@/types/question';
 import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
 import Link from 'next/link';
 import { CheckCircle2, Circle, Bookmark, Building2 } from 'lucide-react';
+import { questionPath } from '@/lib/data/question-path';
 import { cn, difficultyBadgeClass } from '@/lib/utils';
 
 interface QuestionCardProps {
@@ -41,7 +42,7 @@ export function QuestionCard({
   if (compact) {
     return (
       <Link
-        href={`/${question.section}/${question.category}/${question.slug}`}
+        href={questionPath(question)}
         className={cn(
           'group flex h-full min-w-0 flex-col rounded-2xl border bg-card p-3 shadow-sm transition-all hover:border-primary hover:shadow-md',
           done && 'bg-secondary/20',
@@ -118,7 +119,7 @@ export function QuestionCard({
 
   return (
     <Link
-      href={`/${question.section}/${question.category}/${question.slug}`}
+      href={questionPath(question)}
       className={cn(
         'group relative block overflow-hidden rounded-3xl border bg-card p-6 shadow-sm transition-all hover:border-primary hover:shadow-xl',
         done && 'bg-secondary/20',
