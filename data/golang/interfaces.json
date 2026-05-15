@@ -1,0 +1,17 @@
+[
+  {
+    "id": "golang-interfaces-implicit",
+    "section": "golang",
+    "category": "Interfaces",
+    "title": "Implicit Interfaces",
+    "slug": "implicit-interfaces",
+    "difficulty": "medium",
+    "pattern": "Interface Design",
+    "companies": ["Meta", "Amazon"],
+    "tags": ["Interfaces", "Go", "Design"],
+    "markdownPath": "golang/interfaces/implicit-interfaces.md",
+    "frequency": "medium",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  }
+]

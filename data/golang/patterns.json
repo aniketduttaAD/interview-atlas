@@ -1,0 +1,62 @@
+[
+  {
+    "id": "golang-patterns-circuit-breaker",
+    "section": "golang",
+    "category": "Patterns",
+    "title": "Implementing Circuit Breaker Pattern in Go",
+    "slug": "circuit-breaker-pattern",
+    "difficulty": "hard",
+    "pattern": "Resilience",
+    "companies": ["Microsoft", "Twitter"],
+    "tags": ["circuit breaker", "resiliency", "patterns"],
+    "markdownPath": "golang/patterns/circuit-breaker-pattern.md",
+    "frequency": "medium",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-patterns-bulkhead",
+    "section": "golang",
+    "category": "Patterns",
+    "title": "Designing a Bulkhead Pattern for Isolation",
+    "slug": "bulkhead-pattern",
+    "difficulty": "medium",
+    "pattern": "Resilience",
+    "companies": ["Netflix", "LinkedIn"],
+    "tags": ["bulkhead", "isolation", "resiliency"],
+    "markdownPath": "golang/patterns/bulkhead-pattern.md",
+    "frequency": "low",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-patterns-fan-in-fan-out",
+    "section": "golang",
+    "category": "Patterns",
+    "title": "Implementing Fan-Out and Fan-In Patterns",
+    "slug": "fan-out-fan-in",
+    "difficulty": "medium",
+    "pattern": "Concurrency patterns",
+    "companies": ["Google", "Meta"],
+    "tags": ["fan-out", "fan-in", "concurrency"],
+    "markdownPath": "golang/patterns/fan-out-fan-in.md",
+    "frequency": "high",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-patterns-debounce-throttle",
+    "section": "golang",
+    "category": "Patterns",
+    "title": "Debounce and Throttle Patterns in Go",
+    "slug": "debounce-throttle-patterns",
+    "difficulty": "medium",
+    "pattern": "Optimization patterns",
+    "companies": ["Atlassian", "GitHub"],
+    "tags": ["debounce", "throttle", "optimization"],
+    "markdownPath": "golang/patterns/debounce-throttle-patterns.md",
+    "frequency": "medium",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  }
+]

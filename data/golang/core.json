@@ -1,0 +1,32 @@
+[
+  {
+    "id": "golang-core-memory-model",
+    "section": "golang",
+    "category": "Core",
+    "title": "Understanding the Go Memory Model",
+    "slug": "go-memory-model",
+    "difficulty": "hard",
+    "pattern": "Memory and concurrency",
+    "companies": ["Google", "Netflix"],
+    "tags": ["memory", "concurrency", "runtime"],
+    "markdownPath": "golang/core/go-memory-model.md",
+    "frequency": "medium",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-core-goroutine-leaks",
+    "section": "golang",
+    "category": "Core",
+    "title": "Identifying and Preventing Goroutine Leaks",
+    "slug": "goroutine-leaks",
+    "difficulty": "medium",
+    "pattern": "Concurrency",
+    "companies": ["Amazon", "Uber"],
+    "tags": ["goroutines", "leaks", "debugging"],
+    "markdownPath": "golang/core/goroutine-leaks.md",
+    "frequency": "high",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  }
+]

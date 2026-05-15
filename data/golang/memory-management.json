@@ -1,0 +1,17 @@
+[
+  {
+    "id": "golang-memory-garbage-collector",
+    "section": "golang",
+    "category": "Memory Management",
+    "title": "Go Garbage Collector",
+    "slug": "go-garbage-collector",
+    "difficulty": "hard",
+    "pattern": "Memory Management",
+    "companies": ["Google", "Microsoft"],
+    "tags": ["Memory", "Go", "Garbage Collector"],
+    "markdownPath": "golang/memory-management/go-garbage-collector.md",
+    "frequency": "high",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  }
+]

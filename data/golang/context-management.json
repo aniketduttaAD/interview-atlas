@@ -1,0 +1,17 @@
+[
+  {
+    "id": "golang-go-context-propagation",
+    "section": "golang",
+    "category": "Context Management",
+    "title": "Context Propagation",
+    "slug": "context-propagation",
+    "difficulty": "hard",
+    "pattern": "Context Management",
+    "companies": ["Twitter", "Google"],
+    "tags": ["Context", "Concurrency", "Go"],
+    "markdownPath": "golang/context-management/context-propagation.md",
+    "frequency": "high",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  }
+]

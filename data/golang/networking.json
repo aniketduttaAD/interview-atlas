@@ -1,0 +1,17 @@
+[
+  {
+    "id": "golang-grpc-introduction",
+    "section": "golang",
+    "category": "Networking",
+    "title": "Introduction to gRPC in Go",
+    "slug": "introduction-to-grpc-in-go",
+    "difficulty": "medium",
+    "pattern": "Networking",
+    "companies": ["Google", "Amazon"],
+    "tags": ["Networking", "Go", "gRPC"],
+    "markdownPath": "golang/networking/introduction-to-grpc-in-go.md",
+    "frequency": "high",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  }
+]

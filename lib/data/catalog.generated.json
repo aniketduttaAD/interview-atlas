@@ -1,0 +1,634 @@
+{
+  "generatedAt": "2026-05-15T18:40:48.473Z",
+  "sections": [
+    {
+      "key": "ai",
+      "label": "AI",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "behavioral",
+      "label": "BEHAVIORAL",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "cloud",
+      "label": "CLOUD",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "databases",
+      "label": "DATABASES",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "dsa",
+      "label": "DSA",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "golang",
+      "label": "GOLANG",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 25
+    },
+    {
+      "key": "hld",
+      "label": "HLD",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "javascript",
+      "label": "JAVASCRIPT",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "kafka",
+      "label": "KAFKA",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "lld",
+      "label": "LLD",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    },
+    {
+      "key": "react",
+      "label": "REACT",
+      "color": "primary",
+      "icon": "FolderTree",
+      "questionCount": 0
+    }
+  ],
+  "questions": [
+    {
+      "id": "golang-patterns-worker-pool",
+      "section": "golang",
+      "category": "Concurrency Patterns",
+      "title": "Implementing Worker Pool",
+      "slug": "implementing-worker-pool",
+      "difficulty": "medium",
+      "pattern": "Concurrency",
+      "companies": [
+        "Uber",
+        "Netflix"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "Worker Pool"
+      ],
+      "markdownPath": "golang/concurrency-patterns/implementing-worker-pool.md",
+      "frequency": "medium",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-rate-limiter",
+      "section": "golang",
+      "category": "Concurrency Patterns",
+      "title": "Rate Limiter Design",
+      "slug": "rate-limiter-design",
+      "difficulty": "medium",
+      "pattern": "Concurrency",
+      "companies": [
+        "Stripe",
+        "Facebook"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "Rate Limiter"
+      ],
+      "markdownPath": "golang/concurrency-patterns/rate-limiter-design.md",
+      "frequency": "medium",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-concurrent-file-processor",
+      "section": "golang",
+      "category": "Concurrency Patterns",
+      "title": "Concurrent File Processor",
+      "slug": "concurrent-file-processor",
+      "difficulty": "hard",
+      "pattern": "Concurrency",
+      "companies": [
+        "Microsoft",
+        "Spotify"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "File Processing"
+      ],
+      "markdownPath": "golang/concurrency-patterns/concurrent-file-processor.md",
+      "frequency": "low",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-concurrency-goroutines",
+      "section": "golang",
+      "category": "Concurrency",
+      "title": "Goroutines vs OS Threads",
+      "slug": "goroutines-vs-os-threads",
+      "difficulty": "medium",
+      "pattern": "Concurrency",
+      "companies": [
+        "Google",
+        "Facebook"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "Multithreading"
+      ],
+      "markdownPath": "golang/concurrency/goroutines-vs-os-threads.md",
+      "frequency": "high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-concurrency-channels",
+      "section": "golang",
+      "category": "Concurrency",
+      "title": "Channels in Go",
+      "slug": "channels-in-go",
+      "difficulty": "medium",
+      "pattern": "Message Passing",
+      "companies": [
+        "Amazon",
+        "Netflix"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "Channels"
+      ],
+      "markdownPath": "golang/concurrency/channels-in-go.md",
+      "frequency": "very-high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-concurrency-select",
+      "section": "golang",
+      "category": "Concurrency",
+      "title": "Select Statement Usage",
+      "slug": "select-statement-usage",
+      "difficulty": "medium",
+      "pattern": "Non-blocking IO",
+      "companies": [
+        "Microsoft",
+        "Uber"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "Select"
+      ],
+      "markdownPath": "golang/concurrency/select-statement-usage.md",
+      "frequency": "high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-concurrency-waitgroups",
+      "section": "golang",
+      "category": "Concurrency",
+      "title": "Using WaitGroups to Synchronize Work",
+      "slug": "waitgroups-synchronization",
+      "difficulty": "easy",
+      "pattern": "Concurrency control",
+      "companies": [
+        "Apple",
+        "Stripe"
+      ],
+      "tags": [
+        "synchronization",
+        "concurrency",
+        "parallelism"
+      ],
+      "markdownPath": "golang/concurrency/waitgroups-synchronization.md",
+      "frequency": "high",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-concurrency-ticker-vs-timer",
+      "section": "golang",
+      "category": "Concurrency",
+      "title": "Timer vs Ticker: Choosing the Right Tool",
+      "slug": "ticker-vs-timer",
+      "difficulty": "easy",
+      "pattern": "Concurrency",
+      "companies": [
+        "Tesla",
+        "Airbnb"
+      ],
+      "tags": [
+        "timer",
+        "ticker",
+        "time management"
+      ],
+      "markdownPath": "golang/concurrency/ticker-vs-timer.md",
+      "frequency": "medium",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-go-context-propagation",
+      "section": "golang",
+      "category": "Context Management",
+      "title": "Context Propagation",
+      "slug": "context-propagation",
+      "difficulty": "hard",
+      "pattern": "Context Management",
+      "companies": [
+        "Twitter",
+        "Google"
+      ],
+      "tags": [
+        "Context",
+        "Concurrency",
+        "Go"
+      ],
+      "markdownPath": "golang/context-management/context-propagation.md",
+      "frequency": "high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-core-memory-model",
+      "section": "golang",
+      "category": "Core",
+      "title": "Understanding the Go Memory Model",
+      "slug": "go-memory-model",
+      "difficulty": "hard",
+      "pattern": "Memory and concurrency",
+      "companies": [
+        "Google",
+        "Netflix"
+      ],
+      "tags": [
+        "memory",
+        "concurrency",
+        "runtime"
+      ],
+      "markdownPath": "golang/core/go-memory-model.md",
+      "frequency": "medium",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-core-goroutine-leaks",
+      "section": "golang",
+      "category": "Core",
+      "title": "Identifying and Preventing Goroutine Leaks",
+      "slug": "goroutine-leaks",
+      "difficulty": "medium",
+      "pattern": "Concurrency",
+      "companies": [
+        "Amazon",
+        "Uber"
+      ],
+      "tags": [
+        "goroutines",
+        "leaks",
+        "debugging"
+      ],
+      "markdownPath": "golang/core/goroutine-leaks.md",
+      "frequency": "high",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-error-handling-patterns",
+      "section": "golang",
+      "category": "Error Handling",
+      "title": "Error Handling Patterns",
+      "slug": "error-handling-patterns",
+      "difficulty": "medium",
+      "pattern": "Error Handling",
+      "companies": [
+        "Facebook",
+        "Stripe"
+      ],
+      "tags": [
+        "Error",
+        "Go",
+        "Patterns"
+      ],
+      "markdownPath": "golang/error-handling/error-handling-patterns.md",
+      "frequency": "high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-core-error-wrapping",
+      "section": "golang",
+      "category": "Error Handling",
+      "title": "Effective Error Wrapping Techniques",
+      "slug": "error-wrapping-techniques",
+      "difficulty": "medium",
+      "pattern": "Error handling",
+      "companies": [
+        "Shopify",
+        "Dropbox"
+      ],
+      "tags": [
+        "error handling",
+        "wrapping",
+        "code quality"
+      ],
+      "markdownPath": "golang/core/error-wrapping-techniques.md",
+      "frequency": "medium",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-interfaces-implicit",
+      "section": "golang",
+      "category": "Interfaces",
+      "title": "Implicit Interfaces",
+      "slug": "implicit-interfaces",
+      "difficulty": "medium",
+      "pattern": "Interface Design",
+      "companies": [
+        "Meta",
+        "Amazon"
+      ],
+      "tags": [
+        "Interfaces",
+        "Go",
+        "Design"
+      ],
+      "markdownPath": "golang/interfaces/implicit-interfaces.md",
+      "frequency": "medium",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-memory-garbage-collector",
+      "section": "golang",
+      "category": "Memory Management",
+      "title": "Go Garbage Collector",
+      "slug": "go-garbage-collector",
+      "difficulty": "hard",
+      "pattern": "Memory Management",
+      "companies": [
+        "Google",
+        "Microsoft"
+      ],
+      "tags": [
+        "Memory",
+        "Go",
+        "Garbage Collector"
+      ],
+      "markdownPath": "golang/memory-management/go-garbage-collector.md",
+      "frequency": "high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-grpc-introduction",
+      "section": "golang",
+      "category": "Networking",
+      "title": "Introduction to gRPC in Go",
+      "slug": "introduction-to-grpc-in-go",
+      "difficulty": "medium",
+      "pattern": "Networking",
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "tags": [
+        "Networking",
+        "Go",
+        "gRPC"
+      ],
+      "markdownPath": "golang/networking/introduction-to-grpc-in-go.md",
+      "frequency": "high",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-circuit-breaker",
+      "section": "golang",
+      "category": "Patterns",
+      "title": "Implementing Circuit Breaker Pattern in Go",
+      "slug": "circuit-breaker-pattern",
+      "difficulty": "hard",
+      "pattern": "Resilience",
+      "companies": [
+        "Microsoft",
+        "Twitter"
+      ],
+      "tags": [
+        "circuit breaker",
+        "resiliency",
+        "patterns"
+      ],
+      "markdownPath": "golang/patterns/circuit-breaker-pattern.md",
+      "frequency": "medium",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-bulkhead",
+      "section": "golang",
+      "category": "Patterns",
+      "title": "Designing a Bulkhead Pattern for Isolation",
+      "slug": "bulkhead-pattern",
+      "difficulty": "medium",
+      "pattern": "Resilience",
+      "companies": [
+        "Netflix",
+        "LinkedIn"
+      ],
+      "tags": [
+        "bulkhead",
+        "isolation",
+        "resiliency"
+      ],
+      "markdownPath": "golang/patterns/bulkhead-pattern.md",
+      "frequency": "low",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-fan-in-fan-out",
+      "section": "golang",
+      "category": "Patterns",
+      "title": "Implementing Fan-Out and Fan-In Patterns",
+      "slug": "fan-out-fan-in",
+      "difficulty": "medium",
+      "pattern": "Concurrency patterns",
+      "companies": [
+        "Google",
+        "Meta"
+      ],
+      "tags": [
+        "fan-out",
+        "fan-in",
+        "concurrency"
+      ],
+      "markdownPath": "golang/patterns/fan-out-fan-in.md",
+      "frequency": "high",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-debounce-throttle",
+      "section": "golang",
+      "category": "Patterns",
+      "title": "Debounce and Throttle Patterns in Go",
+      "slug": "debounce-throttle-patterns",
+      "difficulty": "medium",
+      "pattern": "Optimization patterns",
+      "companies": [
+        "Atlassian",
+        "GitHub"
+      ],
+      "tags": [
+        "debounce",
+        "throttle",
+        "optimization"
+      ],
+      "markdownPath": "golang/patterns/debounce-throttle-patterns.md",
+      "frequency": "medium",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-synchronization-mutex",
+      "section": "golang",
+      "category": "Synchronization",
+      "title": "Mutex vs RWMutex",
+      "slug": "mutex-vs-rwmutex",
+      "difficulty": "medium",
+      "pattern": "Locking Mechanisms",
+      "companies": [
+        "Stripe",
+        "LinkedIn"
+      ],
+      "tags": [
+        "Concurrency",
+        "Go",
+        "Mutex"
+      ],
+      "markdownPath": "golang/synchronization/mutex-vs-rwmutex.md",
+      "frequency": "medium",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-concurrency-condition-variable",
+      "section": "golang",
+      "category": "Synchronization",
+      "title": "Using Condition Variables for Coordination",
+      "slug": "condition-variables",
+      "difficulty": "hard",
+      "pattern": "Synchronization",
+      "companies": [
+        "IBM",
+        "Pinterest"
+      ],
+      "tags": [
+        "condition variables",
+        "synchronization",
+        "concurrency"
+      ],
+      "markdownPath": "golang/synchronization/condition-variables.md",
+      "frequency": "low",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-graceful-shutdown",
+      "section": "golang",
+      "category": "System Patterns",
+      "title": "Graceful Shutdown in Go",
+      "slug": "graceful-shutdown-in-go",
+      "difficulty": "medium",
+      "pattern": "System",
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "tags": [
+        "System",
+        "Go",
+        "Shutdown"
+      ],
+      "markdownPath": "golang/system-patterns/graceful-shutdown-in-go.md",
+      "frequency": "medium",
+      "addedAt": "2026-03-15",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-system-circuit-breaker",
+      "section": "golang",
+      "category": "System Patterns",
+      "title": "Implementing a Circuit Breaker in Go",
+      "slug": "circuit-breaker-go",
+      "difficulty": "hard",
+      "pattern": "Fault tolerance",
+      "companies": [
+        "AWS",
+        "Azure"
+      ],
+      "tags": [
+        "circuit breaker",
+        "fault tolerance",
+        "resilience"
+      ],
+      "markdownPath": "golang/system/circuit-breaker-go.md",
+      "frequency": "medium",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    },
+    {
+      "id": "golang-patterns-bulkhead-pattern",
+      "section": "golang",
+      "category": "System Patterns",
+      "title": "Implementing Bulkhead Pattern for Isolation",
+      "slug": "bulkhead-pattern-go",
+      "difficulty": "medium",
+      "pattern": "Fault isolation",
+      "companies": [
+        "Salesforce",
+        "Slack"
+      ],
+      "tags": [
+        "bulkhead",
+        "fault isolation",
+        "resilience"
+      ],
+      "markdownPath": "golang/system/bulkhead-pattern-go.md",
+      "frequency": "low",
+      "addedAt": "2023-10-04",
+      "contentStatus": "done"
+    }
+  ]
+}

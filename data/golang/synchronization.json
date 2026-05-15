@@ -1,0 +1,32 @@
+[
+  {
+    "id": "golang-synchronization-mutex",
+    "section": "golang",
+    "category": "Synchronization",
+    "title": "Mutex vs RWMutex",
+    "slug": "mutex-vs-rwmutex",
+    "difficulty": "medium",
+    "pattern": "Locking Mechanisms",
+    "companies": ["Stripe", "LinkedIn"],
+    "tags": ["Concurrency", "Go", "Mutex"],
+    "markdownPath": "golang/synchronization/mutex-vs-rwmutex.md",
+    "frequency": "medium",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-concurrency-condition-variable",
+    "section": "golang",
+    "category": "Synchronization",
+    "title": "Using Condition Variables for Coordination",
+    "slug": "condition-variables",
+    "difficulty": "hard",
+    "pattern": "Synchronization",
+    "companies": ["IBM", "Pinterest"],
+    "tags": ["condition variables", "synchronization", "concurrency"],
+    "markdownPath": "golang/synchronization/condition-variables.md",
+    "frequency": "low",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "golang-patterns-worker-pool",
+    "section": "golang",
+    "category": "Concurrency Patterns",
+    "title": "Implementing Worker Pool",
+    "slug": "implementing-worker-pool",
+    "difficulty": "medium",
+    "pattern": "Concurrency",
+    "companies": ["Uber", "Netflix"],
+    "tags": ["Concurrency", "Go", "Worker Pool"],
+    "markdownPath": "golang/concurrency-patterns/implementing-worker-pool.md",
+    "frequency": "medium",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-patterns-rate-limiter",
+    "section": "golang",
+    "category": "Concurrency Patterns",
+    "title": "Rate Limiter Design",
+    "slug": "rate-limiter-design",
+    "difficulty": "medium",
+    "pattern": "Concurrency",
+    "companies": ["Stripe", "Facebook"],
+    "tags": ["Concurrency", "Go", "Rate Limiter"],
+    "markdownPath": "golang/concurrency-patterns/rate-limiter-design.md",
+    "frequency": "medium",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-patterns-concurrent-file-processor",
+    "section": "golang",
+    "category": "Concurrency Patterns",
+    "title": "Concurrent File Processor",
+    "slug": "concurrent-file-processor",
+    "difficulty": "hard",
+    "pattern": "Concurrency",
+    "companies": ["Microsoft", "Spotify"],
+    "tags": ["Concurrency", "Go", "File Processing"],
+    "markdownPath": "golang/concurrency-patterns/concurrent-file-processor.md",
+    "frequency": "low",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  }
+]

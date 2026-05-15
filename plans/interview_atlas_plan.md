@@ -10,33 +10,33 @@ Save this as:
 
 A minimal, offline-first, React + Tailwind based interview preparation hub designed specifically for:
 
-* Senior Software Engineers
-* Staff/Lead Engineers
-* Engineering Managers with hands-on coding rounds
-* Fullstack/Backend engineers preparing for FAANG/startup interviews
+- Senior Software Engineers
+- Staff/Lead Engineers
+- Engineering Managers with hands-on coding rounds
+- Fullstack/Backend engineers preparing for FAANG/startup interviews
 
 The platform is intentionally optimized for:
 
-* Fast revision
-* High ROI topics
-* Quick navigation
-* Concise interview-focused explanations
-* Pattern recognition
-* Real-world architecture/system design thinking
+- Fast revision
+- High ROI topics
+- Quick navigation
+- Concise interview-focused explanations
+- Pattern recognition
+- Real-world architecture/system design thinking
 
 This is **NOT**:
 
-* a coding platform
-* competitive programming tool
-* fancy learning app
-* gamified system
+- a coding platform
+- competitive programming tool
+- fancy learning app
+- gamified system
 
 This is:
 
-* a personal interview revision notebook
-* knowledge refresher
-* quick reference system
-* senior engineer prep companion
+- a personal interview revision notebook
+- knowledge refresher
+- quick reference system
+- senior engineer prep companion
 
 ---
 
@@ -46,11 +46,11 @@ This is:
 
 The system should help answer:
 
-* “What are the most important questions I should revise?”
-* “How do I quickly recall optimal patterns?”
-* “What should I say in architecture rounds?”
-* “What challenges/tradeoffs should I discuss?”
-* “How do I refresh 5 years of experience quickly before interviews?”
+- “What are the most important questions I should revise?”
+- “How do I quickly recall optimal patterns?”
+- “What should I say in architecture rounds?”
+- “What challenges/tradeoffs should I discuss?”
+- “How do I refresh 5 years of experience quickly before interviews?”
 
 ---
 
@@ -58,36 +58,36 @@ The system should help answer:
 
 ## 1. Minimal UI
 
-* Notion-like
-* Fast navigation
-* Minimal distractions
-* Text-first
-* Keyboard-friendly
+- Notion-like
+- Fast navigation
+- Minimal distractions
+- Text-first
+- Keyboard-friendly
 
 ## 2. High Signal / Low Noise
 
-* Curated content
-* No obscure questions
-* No competitive programming overload
-* No unnecessary theory
+- Curated content
+- No obscure questions
+- No competitive programming overload
+- No unnecessary theory
 
 ## 3. Interview-Oriented
 
 Every page should answer:
 
-* Why is this asked?
-* How to identify it?
-* What is the optimal solution?
-* What tradeoffs should I discuss?
-* What mistakes happen in interviews?
+- Why is this asked?
+- How to identify it?
+- What is the optimal solution?
+- What tradeoffs should I discuss?
+- What mistakes happen in interviews?
 
 ## 4. Offline First
 
-* No backend
-* No auth
-* No DB
-* LocalStorage only
-* Fully local execution
+- No backend
+- No auth
+- No DB
+- LocalStorage only
+- Fully local execution
 
 ---
 
@@ -95,29 +95,29 @@ Every page should answer:
 
 ## Frontend
 
-* React
-* Vite
-* TailwindCSS
+- React
+- Vite
+- TailwindCSS
 
 ## State
 
-* Context API / Zustand (lightweight only if needed)
+- Context API / Zustand (lightweight only if needed)
 
 ## Persistence
 
-* localStorage
+- localStorage
 
 ## Content
 
-* JSON + Markdown driven
+- JSON + Markdown driven
 
 ## Optional Libraries
 
-* react-router-dom
-* react-markdown
-* lucide-react
-* clsx
-* shadcn/ui (minimal usage)
+- react-router-dom
+- react-markdown
+- lucide-react
+- clsx
+- shadcn/ui (minimal usage)
 
 ---
 
@@ -172,10 +172,10 @@ High-frequency FAANG/startup interview questions only.
 
 ## Excluded
 
-* obscure CP problems
-* niche graph theory
-* advanced segment trees
-* olympiad-style DP
+- obscure CP problems
+- niche graph theory
+- advanced segment trees
+- olympiad-style DP
 
 ---
 
@@ -183,102 +183,102 @@ High-frequency FAANG/startup interview questions only.
 
 ## Arrays
 
-* Two Sum
-* Best Time to Buy/Sell Stock
-* Product Except Self
-* Merge Intervals
-* Kadane’s Algorithm
-* Rotate Array
-* Majority Element
-* Dutch National Flag
+- Two Sum
+- Best Time to Buy/Sell Stock
+- Product Except Self
+- Merge Intervals
+- Kadane’s Algorithm
+- Rotate Array
+- Majority Element
+- Dutch National Flag
 
 ## Sliding Window
 
-* Longest Substring Without Repeating
-* Minimum Window Substring
-* Maximum Sum Subarray
-* Permutation in String
+- Longest Substring Without Repeating
+- Minimum Window Substring
+- Maximum Sum Subarray
+- Permutation in String
 
 ## Binary Search
 
-* Search Rotated Array
-* First/Last Occurrence
-* Peak Element
-* Median of Two Sorted Arrays
+- Search Rotated Array
+- First/Last Occurrence
+- Peak Element
+- Median of Two Sorted Arrays
 
 ## Linked List
 
-* Reverse Linked List
-* Detect Cycle
-* Merge K Lists
-* LRU Cache
+- Reverse Linked List
+- Detect Cycle
+- Merge K Lists
+- LRU Cache
 
 ## Stack/Queue
 
-* Valid Parentheses
-* Min Stack
-* Next Greater Element
-* Monotonic Stack
-* Sliding Window Maximum
+- Valid Parentheses
+- Min Stack
+- Next Greater Element
+- Monotonic Stack
+- Sliding Window Maximum
 
 ## Trees/BST
 
-* Level Order Traversal
-* LCA
-* Diameter
-* Validate BST
-* Serialize/Deserialize
+- Level Order Traversal
+- LCA
+- Diameter
+- Validate BST
+- Serialize/Deserialize
 
 ## Heap/Priority Queue
 
-* Kth Largest
-* Top K Frequent
-* Merge K Sorted Lists
+- Kth Largest
+- Top K Frequent
+- Merge K Sorted Lists
 
 ## Graphs
 
-* BFS/DFS
-* Number of Islands
-* Clone Graph
-* Topological Sort
-* Course Schedule
-* Dijkstra (basic)
+- BFS/DFS
+- Number of Islands
+- Clone Graph
+- Topological Sort
+- Course Schedule
+- Dijkstra (basic)
 
 ## Backtracking
 
-* N Queens
-* Combination Sum
-* Permutations
-* Word Search
+- N Queens
+- Combination Sum
+- Permutations
+- Word Search
 
 ## Greedy
 
-* Jump Game
-* Gas Station
-* Task Scheduler
+- Jump Game
+- Gas Station
+- Task Scheduler
 
 ## Dynamic Programming
 
 Important patterns only:
 
-* 1D DP
-* 2D DP
-* Knapsack
-* LIS
-* House Robber
-* Coin Change
-* Edit Distance
+- 1D DP
+- 2D DP
+- Knapsack
+- LIS
+- House Robber
+- Coin Change
+- Edit Distance
 
 ## Trie
 
-* Implement Trie
-* Word Dictionary
+- Implement Trie
+- Word Dictionary
 
 ## Bit Manipulation
 
-* Single Number
-* Counting Bits
-* XOR Tricks
+- Single Number
+- Counting Bits
+- XOR Tricks
 
 ---
 
@@ -288,18 +288,22 @@ Important patterns only:
 # Problem Name
 
 ## Pattern
+
 Sliding Window
 
 ## Recognition Clues
+
 - contiguous subarray
 - maximize/minimize
 - fixed/variable window
 
 ## Brute Force
+
 - intuition
 - complexity
 
 ## Optimal Solution
+
 - intuition
 - complexity
 - why optimal works
@@ -309,6 +313,7 @@ Sliding Window
 ## Variants
 
 ## Asked In
+
 Google, Amazon, Meta + 4 more
 
 ## C++ Solution
@@ -334,26 +339,26 @@ Quick revision for machine coding + OO design rounds.
 
 ## Frequently Asked
 
-* Parking Lot
-* Elevator System
-* Logger
-* Rate Limiter
-* ATM
-* Vending Machine
-* Library Management
-* Tic Tac Toe
-* Snake & Ladder
-* Splitwise
-* Notification System
-* URL Shortener
-* Cab Booking
-* Food Delivery
-* Chat System
-* File Storage System
-* API Rate Limiter
-* Cache System
-* Job Scheduler
-* Distributed Lock Manager
+- Parking Lot
+- Elevator System
+- Logger
+- Rate Limiter
+- ATM
+- Vending Machine
+- Library Management
+- Tic Tac Toe
+- Snake & Ladder
+- Splitwise
+- Notification System
+- URL Shortener
+- Cab Booking
+- Food Delivery
+- Chat System
+- File Storage System
+- API Rate Limiter
+- Cache System
+- Job Scheduler
+- Distributed Lock Manager
 
 ---
 
@@ -393,10 +398,10 @@ Senior engineer architecture revision.
 
 ## Focus
 
-* tradeoffs
-* scalability
-* bottlenecks
-* interview storytelling
+- tradeoffs
+- scalability
+- bottlenecks
+- interview storytelling
 
 ---
 
@@ -404,50 +409,50 @@ Senior engineer architecture revision.
 
 ## Fundamentals
 
-* Scalability
-* CAP theorem
-* Load balancing
-* Horizontal vs vertical scaling
-* Consistency models
-* Caching strategies
+- Scalability
+- CAP theorem
+- Load balancing
+- Horizontal vs vertical scaling
+- Consistency models
+- Caching strategies
 
 ## Databases
 
-* Sharding
-* Replication
-* Partitioning
-* Indexing
-* CQRS
-* Event sourcing
+- Sharding
+- Replication
+- Partitioning
+- Indexing
+- CQRS
+- Event sourcing
 
 ## Messaging
 
-* Kafka
-* RabbitMQ
-* Pub/Sub
-* DLQ
-* Retry patterns
+- Kafka
+- RabbitMQ
+- Pub/Sub
+- DLQ
+- Retry patterns
 
 ## Distributed Systems
 
-* Distributed locks
-* Idempotency
-* Consensus basics
-* Leader election
+- Distributed locks
+- Idempotency
+- Consensus basics
+- Leader election
 
 ## API Architecture
 
-* API Gateway
-* REST vs gRPC
-* WebSockets
-* GraphQL
+- API Gateway
+- REST vs gRPC
+- WebSockets
+- GraphQL
 
 ## Infrastructure
 
-* CDN
-* Reverse proxy
-* Service mesh
-* Kubernetes basics
+- CDN
+- Reverse proxy
+- Service mesh
+- Kubernetes basics
 
 ---
 
@@ -455,21 +460,21 @@ Senior engineer architecture revision.
 
 ## Common Designs
 
-* URL Shortener
-* WhatsApp
-* YouTube
-* Instagram Feed
-* Uber
-* Netflix
-* Notification System
-* Search Autocomplete
-* Distributed Cache
-* Chat System
-* Payment System
-* Logging Platform
-* Metrics Platform
-* Event Driven Architecture
-* Multi-tenant SaaS
+- URL Shortener
+- WhatsApp
+- YouTube
+- Instagram Feed
+- Uber
+- Netflix
+- Notification System
+- Search Autocomplete
+- Distributed Cache
+- Chat System
+- Payment System
+- Logging Platform
+- Metrics Platform
+- Event Driven Architecture
+- Multi-tenant SaaS
 
 ---
 
@@ -509,32 +514,32 @@ Senior engineer architecture revision.
 
 ## Important Topics
 
-* Event Loop
-* Closures
-* Hoisting
-* this keyword
-* Prototypes
-* Async/Await
-* Promises
-* Debounce/Throttle
-* Memory leaks
-* Garbage Collection
-* ES6+
-* Functional Programming
-* Currying
-* Deep clone
-* Polyfills
+- Event Loop
+- Closures
+- Hoisting
+- this keyword
+- Prototypes
+- Async/Await
+- Promises
+- Debounce/Throttle
+- Memory leaks
+- Garbage Collection
+- ES6+
+- Functional Programming
+- Currying
+- Deep clone
+- Polyfills
 
 ---
 
 # JS Coding Questions
 
-* Implement debounce
-* Promise.all polyfill
-* Flatten object
-* Deep clone
-* Event emitter
-* Retry mechanism
+- Implement debounce
+- Promise.all polyfill
+- Flatten object
+- Deep clone
+- Event emitter
+- Retry mechanism
 
 ---
 
@@ -560,30 +565,30 @@ Senior engineer architecture revision.
 
 ## Important Topics
 
-* Reconciliation
-* Virtual DOM
-* Rendering lifecycle
-* Hooks internals
-* useEffect patterns
-* Memoization
-* Context API
-* Performance optimization
-* Suspense
-* Server Components
-* React Query
-* State management
-* Micro-frontends
+- Reconciliation
+- Virtual DOM
+- Rendering lifecycle
+- Hooks internals
+- useEffect patterns
+- Memoization
+- Context API
+- Performance optimization
+- Suspense
+- Server Components
+- React Query
+- State management
+- Micro-frontends
 
 ---
 
 # React Coding Questions
 
-* Infinite scroll
-* Debounced search
-* Dynamic forms
-* Virtualized list
-* Table component
-* Modal manager
+- Infinite scroll
+- Debounced search
+- Dynamic forms
+- Virtualized list
+- Table component
+- Modal manager
 
 ---
 
@@ -591,25 +596,25 @@ Senior engineer architecture revision.
 
 ## Important Topics
 
-* Goroutines
-* Channels
-* Mutex
-* Context package
-* Interfaces
-* Memory management
-* Concurrency patterns
-* Worker pools
-* Error handling
-* gRPC basics
+- Goroutines
+- Channels
+- Mutex
+- Context package
+- Interfaces
+- Memory management
+- Concurrency patterns
+- Worker pools
+- Error handling
+- gRPC basics
 
 ---
 
 # Golang Coding Questions
 
-* Worker pool
-* Rate limiter
-* Graceful shutdown
-* Concurrent processing
+- Worker pool
+- Rate limiter
+- Graceful shutdown
+- Concurrent processing
 
 ---
 
@@ -617,27 +622,27 @@ Senior engineer architecture revision.
 
 ## PostgreSQL
 
-* Indexes
-* MVCC
-* Transactions
-* Isolation levels
-* Query optimization
-* EXPLAIN ANALYZE
+- Indexes
+- MVCC
+- Transactions
+- Isolation levels
+- Query optimization
+- EXPLAIN ANALYZE
 
 ## MongoDB
 
-* Aggregation pipeline
-* Replication
-* Sharding
-* Schema design
+- Aggregation pipeline
+- Replication
+- Sharding
+- Schema design
 
 ## Redis
 
-* Pub/Sub
-* Caching
-* Rate limiting
-* Distributed locks
-* Persistence
+- Pub/Sub
+- Caching
+- Rate limiting
+- Distributed locks
+- Persistence
 
 ---
 
@@ -645,19 +650,19 @@ Senior engineer architecture revision.
 
 ## Kafka
 
-* Partitions
-* Consumer groups
-* Ordering guarantees
-* Exactly once semantics
-* Retention
-* Rebalancing
+- Partitions
+- Consumer groups
+- Ordering guarantees
+- Exactly once semantics
+- Retention
+- Rebalancing
 
 ## RabbitMQ
 
-* Exchanges
-* Routing
-* Retry queues
-* DLQ
+- Exchanges
+- Routing
+- Retry queues
+- DLQ
 
 ---
 
@@ -665,54 +670,54 @@ Senior engineer architecture revision.
 
 ## AWS
 
-* EC2
-* S3
-* CloudFront
-* ALB/NLB
-* Route53
-* IAM
-* ECS/EKS
-* Lambda basics
+- EC2
+- S3
+- CloudFront
+- ALB/NLB
+- Route53
+- IAM
+- ECS/EKS
+- Lambda basics
 
 ## Docker
 
-* Layers
-* Multi-stage builds
-* Networking
-* Volumes
+- Layers
+- Multi-stage builds
+- Networking
+- Volumes
 
 ## Kubernetes
 
-* Pods
-* Deployments
-* Services
-* Ingress
-* ConfigMaps
-* HPA
-* StatefulSets
+- Pods
+- Deployments
+- Services
+- Ingress
+- ConfigMaps
+- HPA
+- StatefulSets
 
 ## ArgoCD
 
-* GitOps
-* Sync strategies
-* Rollbacks
+- GitOps
+- Sync strategies
+- Rollbacks
 
 ## Observability
 
 ### LGTM Stack
 
-* Loki
-* Grafana
-* Tempo
-* Mimir
+- Loki
+- Grafana
+- Tempo
+- Mimir
 
 ### Monitoring Concepts
 
-* metrics
-* traces
-* logs
-* alerting
-* SLI/SLO/SLA
+- metrics
+- traces
+- logs
+- alerting
+- SLI/SLO/SLA
 
 ---
 
@@ -728,48 +733,48 @@ Modern interview preparation for AI-enabled engineering roles.
 
 ## LLM Fundamentals
 
-* Tokens
-* Embeddings
-* Context window
-* Vector DB
-* RAG
-* Fine tuning
-* Prompt engineering
+- Tokens
+- Embeddings
+- Context window
+- Vector DB
+- RAG
+- Fine tuning
+- Prompt engineering
 
 ## Agentic AI
 
-* Tool calling
-* Multi-agent systems
-* Planning/execution
-* Memory systems
+- Tool calling
+- Multi-agent systems
+- Planning/execution
+- Memory systems
 
 ## Frameworks
 
-* LangChain
-* LiteLLM
-* OpenAI SDK
-* MCP basics
+- LangChain
+- LiteLLM
+- OpenAI SDK
+- MCP basics
 
 ## Infrastructure
 
-* GPU basics
-* inference
-* latency
-* streaming
-* batching
+- GPU basics
+- inference
+- latency
+- streaming
+- batching
 
 ## Interview Scenarios
 
 ### Example Questions
 
-* How would you build a RAG system?
-* How do you reduce hallucinations?
-* How do agents maintain memory?
-* How would you scale LLM inference?
-* Challenges in production AI systems?
-* Cost optimization strategies?
-* Prompt injection prevention?
-* AI observability?
+- How would you build a RAG system?
+- How do you reduce hallucinations?
+- How do agents maintain memory?
+- How would you scale LLM inference?
+- Challenges in production AI systems?
+- Cost optimization strategies?
+- Prompt injection prevention?
+- AI observability?
 
 ---
 
@@ -799,14 +804,14 @@ Modern interview preparation for AI-enabled engineering roles.
 
 ## Topics
 
-* Conflict resolution
-* Ownership
-* Leading migration
-* Handling outages
-* Mentoring juniors
-* Tradeoff decisions
-* Incident handling
-* Cross-team collaboration
+- Conflict resolution
+- Ownership
+- Leading migration
+- Handling outages
+- Mentoring juniors
+- Tradeoff decisions
+- Incident handling
+- Cross-team collaboration
 
 ## STAR Format Examples
 
@@ -818,40 +823,40 @@ Modern interview preparation for AI-enabled engineering roles.
 
 ### Navigation
 
-* Sidebar
-* Topic tree
-* Search
+- Sidebar
+- Topic tree
+- Search
 
 ### Filtering
 
-* difficulty
-* company
-* tags
+- difficulty
+- company
+- tags
 
 ### Productivity
 
-* mark done
-* bookmark
-* quick revision mode
+- mark done
+- bookmark
+- quick revision mode
 
 ### Persistence
 
-* localStorage
+- localStorage
 
 ### Reading
 
-* markdown rendering
-* syntax highlighting
+- markdown rendering
+- syntax highlighting
 
 ---
 
 # Nice-to-Have (Future)
 
-* spaced repetition
-* PDF export
-* AI search
-* personal notes
-* keyboard shortcuts
+- spaced repetition
+- PDF export
+- AI search
+- personal notes
+- keyboard shortcuts
 
 ---
 
@@ -873,17 +878,17 @@ Modern interview preparation for AI-enabled engineering roles.
 
 ## Keep Everything:
 
-* concise
-* practical
-* interview-focused
-* revision-friendly
+- concise
+- practical
+- interview-focused
+- revision-friendly
 
 ## Avoid:
 
-* textbook explanations
-* excessive theory
-* overengineering
-* competitive programming style
+- textbook explanations
+- excessive theory
+- overengineering
+- competitive programming style
 
 ---
 
@@ -895,14 +900,14 @@ The platform should feel like:
 
 It should optimize:
 
-* recall speed
-* interview confidence
-* pattern recognition
-* architecture discussion quality
-* real-world engineering storytelling
+- recall speed
+- interview confidence
+- pattern recognition
+- architecture discussion quality
+- real-world engineering storytelling
 
 rather than:
 
-* exhaustive academic learning
-* coding contests
-* certification prep
+- exhaustive academic learning
+- coding contests
+- certification prep

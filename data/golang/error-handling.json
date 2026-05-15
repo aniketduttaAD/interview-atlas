@@ -1,0 +1,32 @@
+[
+  {
+    "id": "golang-error-handling-patterns",
+    "section": "golang",
+    "category": "Error Handling",
+    "title": "Error Handling Patterns",
+    "slug": "error-handling-patterns",
+    "difficulty": "medium",
+    "pattern": "Error Handling",
+    "companies": ["Facebook", "Stripe"],
+    "tags": ["Error", "Go", "Patterns"],
+    "markdownPath": "golang/error-handling/error-handling-patterns.md",
+    "frequency": "high",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-core-error-wrapping",
+    "section": "golang",
+    "category": "Error Handling",
+    "title": "Effective Error Wrapping Techniques",
+    "slug": "error-wrapping-techniques",
+    "difficulty": "medium",
+    "pattern": "Error handling",
+    "companies": ["Shopify", "Dropbox"],
+    "tags": ["error handling", "wrapping", "code quality"],
+    "markdownPath": "golang/core/error-wrapping-techniques.md",
+    "frequency": "medium",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  }
+]

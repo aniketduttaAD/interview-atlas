@@ -1,0 +1,47 @@
+[
+  {
+    "id": "golang-patterns-graceful-shutdown",
+    "section": "golang",
+    "category": "System Patterns",
+    "title": "Graceful Shutdown in Go",
+    "slug": "graceful-shutdown-in-go",
+    "difficulty": "medium",
+    "pattern": "System",
+    "companies": ["Google", "Amazon"],
+    "tags": ["System", "Go", "Shutdown"],
+    "markdownPath": "golang/system-patterns/graceful-shutdown-in-go.md",
+    "frequency": "medium",
+    "addedAt": "2026-03-15",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-system-circuit-breaker",
+    "section": "golang",
+    "category": "System Patterns",
+    "title": "Implementing a Circuit Breaker in Go",
+    "slug": "circuit-breaker-go",
+    "difficulty": "hard",
+    "pattern": "Fault tolerance",
+    "companies": ["AWS", "Azure"],
+    "tags": ["circuit breaker", "fault tolerance", "resilience"],
+    "markdownPath": "golang/system/circuit-breaker-go.md",
+    "frequency": "medium",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  },
+  {
+    "id": "golang-patterns-bulkhead-pattern",
+    "section": "golang",
+    "category": "System Patterns",
+    "title": "Implementing Bulkhead Pattern for Isolation",
+    "slug": "bulkhead-pattern-go",
+    "difficulty": "medium",
+    "pattern": "Fault isolation",
+    "companies": ["Salesforce", "Slack"],
+    "tags": ["bulkhead", "fault isolation", "resilience"],
+    "markdownPath": "golang/system/bulkhead-pattern-go.md",
+    "frequency": "low",
+    "addedAt": "2023-10-04",
+    "contentStatus": "done"
+  }
+]
