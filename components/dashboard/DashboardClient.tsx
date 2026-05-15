@@ -122,7 +122,7 @@ export function DashboardClient() {
           <div className="h-px flex-1 bg-border/60 mx-10 hidden sm:block" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
           {(sections as AdminSection[]).map((section) => {
             const doneCount = done.filter((id) =>
               id.startsWith(`${section.key}-`),
@@ -134,37 +134,37 @@ export function DashboardClient() {
               <Link
                 key={section.key}
                 href={sectionPath(section.key)}
-                className="block group"
+                className="block group min-w-0"
               >
-                <div className="h-full bg-card border rounded-[2rem] p-8 hover:border-primary hover:shadow-2xl hover:shadow-primary/5 transition-all flex flex-col justify-between overflow-hidden relative">
-                  <div className="relative z-10">
-                    <div className="flex justify-between items-start mb-12">
-                      <div className="w-12 h-12 rounded-2xl bg-secondary group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                <div className="h-full bg-card border rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 hover:border-primary hover:shadow-2xl hover:shadow-primary/5 transition-all flex flex-col justify-between overflow-hidden relative">
+                  <div className="relative z-10 min-w-0">
+                    <div className="flex justify-between items-start gap-1.5 mb-4 sm:mb-12">
+                      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-secondary group-hover:bg-primary/10 flex items-center justify-center transition-colors shrink-0">
                         <LayoutDashboard
-                          size={20}
+                          size={18}
                           className="text-muted-foreground group-hover:text-primary transition-colors"
                         />
                       </div>
-                      <div className="bg-secondary/50 px-3 py-1.5 rounded-xl text-[10px] font-bold border border-border/50 uppercase tracking-tight">
-                        {section.questionCount} Modules
+                      <div className="bg-secondary/50 px-1.5 py-0.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-[7px] sm:text-[10px] font-bold border border-border/50 uppercase tracking-tight shrink-0">
+                        {section.questionCount} mod
                       </div>
                     </div>
-                    <h3 className="font-bold text-2xl tracking-tight leading-none mb-2">
+                    <h3 className="font-bold text-sm sm:text-2xl tracking-tight leading-tight mb-1 sm:mb-2 truncate">
                       {section.label}
                     </h3>
-                    <p className="text-xs text-muted-foreground font-medium line-clamp-1">
+                    <p className="hidden sm:block text-xs text-muted-foreground font-medium line-clamp-1">
                       Master {section.label.toLowerCase()} architecture
                     </p>
                   </div>
 
-                  <div className="pt-10 space-y-4 relative z-10">
-                    <div className="flex justify-between text-[10px] font-bold tracking-widest">
-                      <span className="text-muted-foreground/60 uppercase">
-                        Domain Mastery
+                  <div className="pt-3 sm:pt-10 space-y-1.5 sm:space-y-4 relative z-10">
+                    <div className="flex justify-between text-[8px] sm:text-[10px] font-bold tracking-widest gap-1">
+                      <span className="text-muted-foreground/60 uppercase truncate">
+                        Mastery
                       </span>
-                      <span className="text-primary">{percent}%</span>
+                      <span className="text-primary shrink-0">{percent}%</span>
                     </div>
-                    <div className="w-full bg-secondary rounded-full h-1.5 overflow-hidden">
+                    <div className="w-full bg-secondary rounded-full h-1 sm:h-1.5 overflow-hidden">
                       <div
                         className="bg-primary h-full rounded-full transition-all duration-1000 ease-out"
                         style={{ width: `${percent}%` }}
