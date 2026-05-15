@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { createPersistJSONStorage } from '@/lib/storage/persist-storage';
 
 type Difficulty = 'easy' | 'medium' | 'hard';
 type Status = 'all' | 'done' | 'bookmarked';
@@ -32,7 +33,7 @@ export const useFilterStore = create<FilterState>()(
     }),
     {
       name: STORAGE_KEYS.FILTERS,
-      storage: createJSONStorage(() => localStorage),
+      storage: createPersistJSONStorage(),
     },
   ),
 );

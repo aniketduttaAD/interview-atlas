@@ -1,7 +1,8 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import { useSyncExternalStore } from 'react';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { createPersistJSONStorage } from '@/lib/storage/persist-storage';
 
 interface ProgressState {
   done: string[];
@@ -76,7 +77,7 @@ export const useProgressStore = create<ProgressState>()(
     }),
     {
       name: STORAGE_KEYS.PROGRESS,
-      storage: createJSONStorage(() => localStorage),
+      storage: createPersistJSONStorage(),
     },
   ),
 );
@@ -84,8 +85,12 @@ export const useProgressStore = create<ProgressState>()(
 /** True after localStorage rehydration — use before reading done/bookmarks on SSR pages. */
 export function useProgressHydrated() {
   return useSyncExternalStore(
-    useProgressStore.persist.onFinishHydration,
-    () => useProgressStore.persist.hasHydrated(),
+    (onStoreChange) => {
+      const api = useProgressStore.persist;
+      if (!api?.onFinishHydration) return () => {};
+      return api.onFinishHydration(onStoreChange);
+    },
+    () => useProgressStore.persist?.hasHydrated() ?? false,
     () => false,
   );
 }

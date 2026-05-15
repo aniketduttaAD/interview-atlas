@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { createPersistJSONStorage } from '@/lib/storage/persist-storage';
 import { Message } from '@/types/ai';
 
 interface AIState {
@@ -60,7 +61,7 @@ export const useAIStore = create<AIState>()(
     }),
     {
       name: STORAGE_KEYS.AI_HIST,
-      storage: createJSONStorage(() => localStorage),
+      storage: createPersistJSONStorage(),
       partialize: (state) => ({
         messages: state.messages, // Only persist messages, not UI state like panelOpen
       }),

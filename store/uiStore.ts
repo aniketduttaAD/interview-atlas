@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { createPersistJSONStorage } from '@/lib/storage/persist-storage';
 import { AdminSection } from '@/types/admin';
 
 type Theme = 'light' | 'dark' | 'system';
@@ -33,8 +34,7 @@ export const useUIStore = create<UIState>()(
     }),
     {
       name: STORAGE_KEYS.UI,
-      storage: createJSONStorage(() => localStorage),
-      // Keep transient UI like searchOpen out of persisted state.
+      storage: createPersistJSONStorage(),
       partialize: (state) => ({
         theme: state.theme,
       }),
