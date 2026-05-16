@@ -7,7 +7,12 @@ import { adminPostJsonInit } from '@/lib/admin/admin-fetch';
 type SessionState =
   | { status: 'loading' }
   | { status: 'ready'; locked: false }
-  | { status: 'ready'; locked: true; authenticated: boolean };
+  | {
+      status: 'ready';
+      locked: true;
+      configured: boolean;
+      authenticated: boolean;
+    };
 
 export function AdminSessionGate({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<SessionState>({ status: 'loading' });
@@ -16,7 +21,11 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
   const [submitting, setSubmitting] = useState(false);
 
   const applySessionPayload = useCallback(
-    (data: { locked?: boolean; authenticated?: boolean }) => {
+    (data: {
+      locked?: boolean;
+      configured?: boolean;
+      authenticated?: boolean;
+    }) => {
       if (!data.locked) {
         setSession({ status: 'ready', locked: false });
         return;
@@ -24,6 +33,7 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
       setSession({
         status: 'ready',
         locked: true,
+        configured: data.configured !== false,
         authenticated: Boolean(data.authenticated),
       });
     },
@@ -36,6 +46,7 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
       const res = await fetch('/api/admin/session', { credentials: 'include' });
       const data = (await res.json()) as {
         locked?: boolean;
+        configured?: boolean;
         authenticated?: boolean;
       };
       if (cancelled) return;
@@ -50,6 +61,7 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
     const res = await fetch('/api/admin/session', { credentials: 'include' });
     const data = (await res.json()) as {
       locked?: boolean;
+      configured?: boolean;
       authenticated?: boolean;
     };
     applySessionPayload(data);
@@ -86,6 +98,22 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
     );
   }
 
+  if (session.status === 'ready' && session.locked && !session.configured) {
+    return (
+      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-4">
+        <div className="max-w-sm text-center space-y-2">
+          <h1 className="text-lg font-semibold tracking-tight">
+            Admin unavailable
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Set <code className="text-xs">ADMIN_API_SECRET</code> in your
+            deployment environment, then redeploy.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (session.status === 'ready' && session.locked && !session.authenticated) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-4">
@@ -97,10 +125,7 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
             Admin sign-in
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter the same value as{' '}
-            <code className="text-xs">ADMIN_API_SECRET</code> on the server. A
-            secure session cookie is set; nothing is stored in the public client
-            bundle.
+            Enter your admin password.
           </p>
         </div>
         <form
@@ -108,14 +133,14 @@ export function AdminSessionGate({ children }: { children: ReactNode }) {
           className="flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-border bg-card p-6 shadow-sm"
         >
           <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-            Secret
+            Password
             <input
               type="password"
               autoComplete="current-password"
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
               className="mt-1.5 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-              placeholder="ADMIN_API_SECRET"
+              placeholder="Admin password"
               required
             />
           </label>

@@ -6,8 +6,9 @@ import {
   chatCompletionTokenLimit,
 } from '@/lib/ai/openai';
 import { AI_ADMIN_GENERATE_MODEL } from '@/lib/ai/models';
+import { safeApiErrorMessage } from '@/lib/api/safe-error-message';
 import { getOpenAIApiKey } from '@/lib/env';
-import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { guardAdminRequest } from '@/lib/admin/guard-admin-request';
 import { Question } from '@/types/question';
 
 /**
@@ -186,7 +187,7 @@ function sanitizeStub(item: Partial<Question>, section: string): Question {
 }
 
 export async function POST(req: NextRequest) {
-  const authError = validateAdminSecret(req);
+  const authError = guardAdminRequest(req);
   if (authError) return authError;
 
   try {
@@ -273,8 +274,7 @@ DO NOT include markdownContent. This endpoint is stubs only.
     console.error('[Stub Gen] Failed:', error);
     return NextResponse.json(
       {
-        error:
-          error instanceof Error ? error.message : 'Stub generation failed.',
+        error: safeApiErrorMessage(error, 'Stub generation failed.'),
       },
       { status: 500 },
     );

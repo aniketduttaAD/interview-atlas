@@ -17,12 +17,15 @@ const bundledCatalog = BUNDLED_FALLBACK_CATALOG;
 /** No repo-bundled markdown; bodies arrive after the first successful sync. */
 const bundledContentById: Record<string, string> = {};
 
+/** Stable reference for SSR and useSyncExternalStore getServerSnapshot. */
+const bundledLibrary: OfflineLibrary = {
+  catalog: bundledCatalog,
+  contentById: bundledContentById,
+  syncedAt: bundledCatalog.generatedAt,
+};
+
 export function getBundledLibrary(): OfflineLibrary {
-  return {
-    catalog: bundledCatalog,
-    contentById: { ...bundledContentById },
-    syncedAt: bundledCatalog.generatedAt,
-  };
+  return bundledLibrary;
 }
 
 function storage(): Storage | null {

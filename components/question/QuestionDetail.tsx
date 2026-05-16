@@ -5,6 +5,7 @@ import { MarkdownRenderer } from '@/components/markdown/MarkdownRenderer';
 import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
 import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
 import { sectionPath } from '@/lib/data/question-path';
+import { ShareButton } from '@/components/share/ShareButton';
 import Link from 'next/link';
 import { useMemo, useEffect } from 'react';
 import {
@@ -168,6 +169,7 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
 
             <div className="flex shrink-0 items-center gap-1.5">
               {markDoneButton}
+              <ShareButton title={question.title} />
               {bookmarkButton}
             </div>
           </div>

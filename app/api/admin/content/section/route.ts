@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { safeApiErrorMessage } from '@/lib/api/safe-error-message';
+import { guardAdminRequest } from '@/lib/admin/guard-admin-request';
 import { getSectionData } from '@/lib/data/loader';
 import { loadResolvedLibrary } from '@/lib/data/load-resolved-catalog';
 import type { SectionKey } from '@/types/question';
 
 export async function GET(req: NextRequest) {
-  const authError = validateAdminSecret(req);
+  const authError = guardAdminRequest(req);
   if (authError) return authError;
 
   try {
@@ -33,7 +34,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(content);
   } catch (error: unknown) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Unknown error' },
+      { error: safeApiErrorMessage(error, 'Failed to load section.') },
       { status: 503 },
     );
   }

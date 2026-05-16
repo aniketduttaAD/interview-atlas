@@ -8,6 +8,7 @@ import { useProgressStore, useProgressHydrated } from '@/store/progressStore';
 import { Filter, LayoutDashboard, X } from 'lucide-react';
 import { AdminSection } from '@/types/admin';
 import { cn } from '@/lib/utils';
+import { ShareButton } from '@/components/share/ShareButton';
 
 interface SectionClientProps {
   sectionKey: string;
@@ -123,10 +124,13 @@ export function SectionClient({ sectionKey, sectionMeta }: SectionClientProps) {
     <div className="max-w-7xl mx-auto p-4 pb-24 md:p-8 md:pb-10 space-y-8 md:space-y-10">
       <div className="space-y-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary">
-              <LayoutDashboard size={12} />
-              Domain Mastery
+          <div className="space-y-1 flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary">
+                <LayoutDashboard size={12} />
+                Domain Mastery
+              </div>
+              <ShareButton title={sectionMeta.label} className="md:hidden" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-black tracking-tighter uppercase italic bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
               {sectionMeta.label}
@@ -138,7 +142,11 @@ export function SectionClient({ sectionKey, sectionMeta }: SectionClientProps) {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
+            <ShareButton
+              title={sectionMeta.label}
+              className="hidden md:inline-flex"
+            />
             <button
               type="button"
               onClick={() => setShowFilters(!showFilters)}

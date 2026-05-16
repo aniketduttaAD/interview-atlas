@@ -91,23 +91,21 @@ function MermaidDiagramCanvas({ chart }: { chart: string }) {
     >
       <div
         className={clsx(
-          'mermaid-scroll w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain',
+          'mermaid-scroll w-full min-w-0 overflow-x-auto overscroll-x-contain',
           '[-webkit-overflow-scrolling:touch]',
           'px-3 py-4 sm:px-5 sm:py-5',
         )}
       >
-        <div className="mermaid-scroll-inner flex w-full min-w-min justify-center">
-          {!svg ? (
-            <div className="flex min-h-[140px] w-full max-w-md items-center justify-center rounded-lg bg-muted/30 text-xs text-muted-foreground animate-pulse">
-              Rendering diagram…
-            </div>
-          ) : (
-            <div
-              className="mermaid-diagram [&_svg]:h-auto [&_svg]:max-w-full"
-              dangerouslySetInnerHTML={{ __html: svg }}
-            />
-          )}
-        </div>
+        {!svg ? (
+          <div className="flex min-h-[200px] w-full items-center justify-center rounded-lg bg-muted/30 text-xs text-muted-foreground animate-pulse">
+            Rendering diagram…
+          </div>
+        ) : (
+          <div
+            className="mermaid-diagram inline-block min-w-full"
+            dangerouslySetInnerHTML={{ __html: svg }}
+          />
+        )}
       </div>
     </figure>
   );

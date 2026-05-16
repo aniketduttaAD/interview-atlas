@@ -5,4 +5,5 @@ export const STORAGE_KEYS = {
   AI_HIST: 'prephub:ai-history',
   /** Full catalog + markdown (single offline library). */
   OFFLINE_LIBRARY: 'prephub:offline-library',
+  PWA_INSTALL_DISMISSED: 'prephub:pwa-install-dismissed',
 } as const;

@@ -4,6 +4,7 @@ import './globals.css';
 import { AppShell } from '@/components/layout/AppShell';
 import { SearchOverlay } from '@/components/search/SearchOverlay';
 import { PwaRoot } from '@/components/pwa/PwaRoot';
+import { buildRootMetadata } from '@/lib/seo/metadata';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,6 +17,7 @@ const APP_DESCRIPTION =
   'Offline-first interview preparation for senior engineers. AI assistant requires internet.';
 
 export const metadata: Metadata = {
+  ...buildRootMetadata(),
   applicationName: APP_NAME,
   title: {
     default: APP_NAME,

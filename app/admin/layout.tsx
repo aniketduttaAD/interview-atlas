@@ -12,10 +12,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     <div className="flex flex-col h-screen bg-background overflow-hidden">
       <header className="sticky top-0 z-[60] w-full border-b bg-background/95 backdrop-blur-md shrink-0">
         <div className="px-4 lg:px-6 flex h-12 items-center justify-between">
-          <Link
-            href="/admin/generate"
-            className="flex items-center gap-2 group"
-          >
+          <Link href="/" className="flex items-center gap-2 group">
             <Image
               src="/icon.png"
               alt="Atlas"
@@ -23,8 +20,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               height={20}
               className="brightness-110 group-hover:scale-110 transition-all shrink-0"
             />
-            <span className="font-extrabold text-[13px] lg:text-[14px] tracking-tighter uppercase bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-400 bg-clip-text text-transparent whitespace-nowrap">
-              Interview Atlas <span className="opacity-80">Admin</span>
+            <span className="font-extrabold text-[13px] lg:text-[14px] tracking-tighter uppercase whitespace-nowrap">
+              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-400 bg-clip-text text-transparent">
+                Interview Atlas
+              </span>{' '}
+              <span className="text-muted-foreground">Admin</span>
             </span>
           </Link>
 

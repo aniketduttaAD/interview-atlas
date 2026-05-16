@@ -2,6 +2,9 @@
 
 import type { ReactNode } from 'react';
 import { SerwistProvider } from '@serwist/next/react';
+import { OfflineLibraryProvider } from '@/lib/offline/offline-library-provider';
+import { PwaDevCleanup } from '@/components/pwa/PwaDevCleanup';
+import { PwaInstallProvider } from '@/lib/pwa/pwa-install-provider';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -10,11 +13,16 @@ export function PwaRoot({ children }: { children: ReactNode }) {
     <SerwistProvider
       swUrl="/sw.js"
       disable={isDev}
-      register
-      cacheOnNavigation
+      register={!isDev}
+      cacheOnNavigation={false}
       reloadOnOnline={false}
     >
-      {children}
+      <PwaInstallProvider>
+        <OfflineLibraryProvider>
+          {isDev ? <PwaDevCleanup /> : null}
+          {children}
+        </OfflineLibraryProvider>
+      </PwaInstallProvider>
     </SerwistProvider>
   );
 }

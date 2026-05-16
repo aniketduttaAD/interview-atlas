@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { AI_CHAT_LIMITS } from '@/lib/ai/chat-limits';
+import { enforceSameOrigin } from '@/lib/api/same-origin';
 
 export interface ParsedChatBody {
+  questionId: string;
   questionTitle: string;
   questionContent: string;
   sectionLabel: string;
@@ -9,31 +11,9 @@ export interface ParsedChatBody {
   history: { role: string; content: string }[];
 }
 
-/**
- * In production, only allow calls from this deployment (Origin or Referer must match).
- */
+/** In production, only allow calls from this deployment (Origin or Referer must match). */
 export function enforceAiChatSameOrigin(req: NextRequest): NextResponse | null {
-  if (process.env.NODE_ENV !== 'production') return null;
-
-  const expected = req.nextUrl.origin;
-  const origin = req.headers.get('origin');
-  if (origin) {
-    if (origin !== expected) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-    return null;
-  }
-
-  const referer = req.headers.get('referer');
-  if (referer) {
-    try {
-      if (new URL(referer).origin === expected) return null;
-    } catch {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-  }
-
-  return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  return enforceSameOrigin(req);
 }
 
 export function parseAndValidateChatBody(
@@ -50,6 +30,19 @@ export function parseAndValidateChatBody(
   }
 
   const o = raw as Record<string, unknown>;
+
+  const questionId =
+    typeof o.questionId === 'string' ? o.questionId.trim() : '';
+  if (!questionId || questionId.length > 120) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: 'questionId is required.' },
+        { status: 400 },
+      ),
+    };
+  }
+
   const userMessage =
     typeof o.userMessage === 'string' ? o.userMessage.trim() : '';
   if (!userMessage) {
@@ -158,6 +151,7 @@ export function parseAndValidateChatBody(
   return {
     ok: true,
     data: {
+      questionId,
       questionTitle,
       questionContent,
       sectionLabel,

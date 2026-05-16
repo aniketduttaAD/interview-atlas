@@ -8,4 +8,13 @@ export {
   resolveLibrary,
   writeStoredLibrary,
 } from './library';
-export { useOfflineLibrary } from './use-offline-library';
+export {
+  LIBRARY_BACKGROUND_SYNC_MS,
+  onLibrarySynced,
+  runLibrarySync,
+  scheduleDebouncedBackgroundSync,
+} from './library-sync';
+export {
+  OfflineLibraryProvider,
+  useOfflineLibrary,
+} from './offline-library-provider';

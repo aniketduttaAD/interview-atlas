@@ -8,8 +8,9 @@ import {
   getSectionContentTemplate,
 } from '@/lib/ai/openai';
 import { AI_ADMIN_GENERATE_MODEL } from '@/lib/ai/models';
+import { safeApiErrorMessage } from '@/lib/api/safe-error-message';
 import { getOpenAIApiKey } from '@/lib/env';
-import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { guardAdminRequest } from '@/lib/admin/guard-admin-request';
 
 const CONTENT_SYSTEM_PROMPT = `${ADMIN_ORCHESTRATOR_PROMPT}\n\n${ADMIN_MARKDOWN_CONTENT_RULES}`;
 
@@ -20,7 +21,7 @@ const CONTENT_SYSTEM_PROMPT = `${ADMIN_ORCHESTRATOR_PROMPT}\n\n${ADMIN_MARKDOWN_
  */
 
 export async function POST(req: NextRequest) {
-  const authError = validateAdminSecret(req);
+  const authError = guardAdminRequest(req);
   if (authError) return authError;
 
   try {
@@ -107,8 +108,7 @@ ${contentTemplate}
     console.error('[Content Gen] Failed:', error);
     return NextResponse.json(
       {
-        error:
-          error instanceof Error ? error.message : 'Content generation failed.',
+        error: safeApiErrorMessage(error, 'Content generation failed.'),
       },
       { status: 500 },
     );

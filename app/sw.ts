@@ -1,11 +1,6 @@
 import { defaultCache } from '@serwist/next/worker';
 import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist';
-import {
-  ExpirationPlugin,
-  NetworkOnly,
-  Serwist,
-  StaleWhileRevalidate,
-} from 'serwist';
+import { NetworkFirst, NetworkOnly, Serwist } from 'serwist';
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -19,7 +14,7 @@ const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
-  navigationPreload: false,
+  navigationPreload: true,
   runtimeCaching: [
     {
       matcher: ({ url }) => url.pathname.startsWith('/api/ai/'),
@@ -31,31 +26,12 @@ const serwist = new Serwist({
     },
     {
       matcher: ({ url }) => url.pathname.startsWith('/api/data/'),
-      handler: new StaleWhileRevalidate({
+      handler: new NetworkFirst({
         cacheName: 'api-data-catalog',
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 8,
-            maxAgeSeconds: 7 * 24 * 60 * 60,
-          }),
-        ],
+        networkTimeoutSeconds: 10,
       }),
     },
-    {
-      matcher: ({ request, url, sameOrigin }) =>
-        sameOrigin &&
-        !url.pathname.startsWith('/api/') &&
-        (request.mode === 'navigate' || request.headers.get('RSC') === '1'),
-      handler: new StaleWhileRevalidate({
-        cacheName: 'app-pages-offline',
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 128,
-            maxAgeSeconds: 30 * 24 * 60 * 60,
-          }),
-        ],
-      }),
-    },
+    // Do not cache App Router navigations or RSC — avoids stale/404 pages in new tabs.
     ...defaultCache,
   ],
   fallbacks: {

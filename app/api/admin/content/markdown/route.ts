@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { guardAdminRequest } from '@/lib/admin/guard-admin-request';
 import { loadResolvedLibrary } from '@/lib/data/load-resolved-catalog';
 
 /** Read markdown by relative path (e.g. golang/concurrency/foo.md). Served from Blob snapshot only. */
 export async function GET(req: NextRequest) {
-  const authError = validateAdminSecret(req);
+  const authError = guardAdminRequest(req);
   if (authError) return authError;
 
   try {

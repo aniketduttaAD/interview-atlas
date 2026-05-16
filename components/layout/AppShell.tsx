@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
 import { OfflineIndicator } from './OfflineIndicator';
-
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
@@ -90,8 +89,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </kbd>
             </button>
             <ThemeToggle />
-
-            {/* Mobile Menu Icon would go here if needed, but keeping it simple for now */}
           </div>
         </div>
       </header>

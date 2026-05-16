@@ -13,15 +13,16 @@ export function getMermaidInitializeOptions() {
     securityLevel: 'strict' as const,
     fontFamily: 'var(--font-sans), ui-sans-serif, system-ui, sans-serif',
     flowchart: {
-      useMaxWidth: true,
+      // Keep intrinsic diagram size; container scrolls horizontally when wide.
+      useMaxWidth: false,
       htmlLabels: true,
       curve: 'basis' as const,
-      padding: 18,
-      nodeSpacing: 48,
-      rankSpacing: 56,
+      padding: 20,
+      nodeSpacing: 56,
+      rankSpacing: 72,
     },
     sequence: {
-      useMaxWidth: true,
+      useMaxWidth: false,
     },
     themeVariables: dark
       ? {
@@ -57,10 +58,28 @@ export function getMermaidInitializeOptions() {
   };
 }
 
-/** Keep SVG responsive and centered when the intrinsic box is narrower than the article. */
+function mermaidMinHeightFromViewBox(svg: string): number {
+  const viewBoxMatch = svg.match(/viewBox=["']([^"']+)["']/i);
+  if (!viewBoxMatch) return 200;
+
+  const parts = viewBoxMatch[1]
+    .trim()
+    .split(/[\s,]+/)
+    .map(Number);
+  if (parts.length !== 4 || !parts[2] || !parts[3]) return 200;
+
+  const [, , width, height] = parts;
+  const aspect = height / width;
+  // Readable height for wide flowcharts when the article is ~720px wide.
+  return Math.round(Math.max(180, Math.min(520, aspect * 720)));
+}
+
+/** Preserve intrinsic diagram size; parent scrolls on narrow viewports. */
 export function normalizeMermaidSvg(svg: string): string {
+  const minHeight = mermaidMinHeightFromViewBox(svg);
+
   return svg.replace(/<svg\b([^>]*)>/i, (_match, attrs: string) => {
-    let next = attrs;
+    let next = attrs.replace(/\s(width|height)=["'][^"']*["']/gi, '');
 
     if (!/\brole=/i.test(next)) {
       next += ' role="img"';
@@ -69,7 +88,7 @@ export function normalizeMermaidSvg(svg: string): string {
       next += ' aria-label="Architecture diagram"';
     }
 
-    const responsiveStyle = 'max-width:100%;height:auto;display:block;';
+    const responsiveStyle = `display:block;width:auto;height:auto;min-height:${minHeight}px;max-width:none;`;
 
     if (/\bstyle="/i.test(next)) {
       next = next.replace(

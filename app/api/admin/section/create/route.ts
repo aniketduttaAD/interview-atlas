@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createEmptyCatalog } from '@/lib/data/catalog-client';
 import { getCommitStoreStatus } from '@/lib/env';
-import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { safeApiErrorMessage } from '@/lib/api/safe-error-message';
+import { guardAdminRequest } from '@/lib/admin/guard-admin-request';
 import {
   LIBRARY_SNAPSHOT_VERSION,
   readLibrarySnapshot,
@@ -9,7 +10,7 @@ import {
 } from '@/lib/blob/library-snapshot';
 
 export async function POST(req: NextRequest) {
-  const authError = validateAdminSecret(req);
+  const authError = guardAdminRequest(req);
   if (authError) return authError;
 
   try {
@@ -93,7 +94,9 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: unknown) {
     console.error('Failed to create section:', error);
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      { error: safeApiErrorMessage(error, 'Failed to create section.') },
+      { status: 500 },
+    );
   }
 }

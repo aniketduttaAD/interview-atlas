@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { commitSectionContent } from '@/lib/admin/commit-section';
+import { safeApiErrorMessage } from '@/lib/api/safe-error-message';
 import { getCommitStoreStatus } from '@/lib/env';
-import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { guardAdminRequest } from '@/lib/admin/guard-admin-request';
 
 export async function POST(req: NextRequest) {
-  const authError = validateAdminSecret(req);
+  const authError = guardAdminRequest(req);
   if (authError) return authError;
 
   try {
@@ -46,7 +47,9 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: unknown) {
     console.error('Commit failed:', error);
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      { error: safeApiErrorMessage(error, 'Sync failed.') },
+      { status: 500 },
+    );
   }
 }

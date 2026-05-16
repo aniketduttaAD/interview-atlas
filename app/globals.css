@@ -178,8 +178,9 @@
 
   .mermaid-diagram svg {
     display: block;
+    width: auto;
     height: auto;
-    max-width: 100%;
+    max-width: none;
   }
 
   .mermaid-diagram .node rect,
