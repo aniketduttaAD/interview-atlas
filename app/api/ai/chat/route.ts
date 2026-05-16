@@ -1,4 +1,8 @@
-import { getOpenAI, CHAT_SYSTEM_PROMPT } from '@/lib/ai/openai';
+import {
+  getOpenAI,
+  CHAT_SYSTEM_PROMPT,
+  chatCompletionTokenLimit,
+} from '@/lib/ai/openai';
 import { AI_CHAT_MODEL } from '@/lib/ai/models';
 import { getOpenAIApiKey } from '@/lib/env';
 import {
@@ -66,12 +70,22 @@ ${questionContent || '(No content provided)'}`;
     const response = await getOpenAI().chat.completions.create({
       model: AI_CHAT_MODEL,
       messages,
-      max_tokens: 4096,
+      ...chatCompletionTokenLimit(4096),
     });
 
-    return NextResponse.json({ reply: response.choices[0].message.content });
-  } catch (error) {
+    const reply = response.choices[0]?.message?.content;
+    if (!reply) {
+      return NextResponse.json(
+        { error: 'AI returned an empty response' },
+        { status: 502 },
+      );
+    }
+
+    return NextResponse.json({ reply });
+  } catch (error: unknown) {
     console.error('Chat AI error:', error);
-    return NextResponse.json({ error: 'AI request failed' }, { status: 500 });
+    const message =
+      error instanceof Error ? error.message : 'AI request failed';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -4,6 +4,7 @@ import {
   getOpenAI,
   ADMIN_ORCHESTRATOR_PROMPT,
   ADMIN_MARKDOWN_CONTENT_RULES,
+  chatCompletionTokenLimit,
   getSectionContentTemplate,
 } from '@/lib/ai/openai';
 import { AI_ADMIN_GENERATE_MODEL } from '@/lib/ai/models';
@@ -89,7 +90,7 @@ ${contentTemplate}
         { role: 'user', content: systemContext },
         { role: 'user', content: userMessage },
       ],
-      max_tokens: 8000,
+      ...chatCompletionTokenLimit(8000),
     });
 
     const markdownContent = response.choices[0].message.content?.trim() || '';

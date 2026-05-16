@@ -11,6 +11,13 @@ export function getOpenAI(): OpenAI {
   return openaiClient;
 }
 
+/** GPT-5+ models reject `max_tokens`; use `max_completion_tokens` instead. */
+export function chatCompletionTokenLimit(max: number): {
+  max_completion_tokens: number;
+} {
+  return { max_completion_tokens: max };
+}
+
 // ─────────────────────────────────────────────────────────────
 // USER-FACING CHAT (question page AI panel)
 // ─────────────────────────────────────────────────────────────

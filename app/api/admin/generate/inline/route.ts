@@ -3,6 +3,7 @@ import {
   getOpenAI,
   ADMIN_ORCHESTRATOR_PROMPT,
   ADMIN_STUB_JSON_RULES,
+  chatCompletionTokenLimit,
 } from '@/lib/ai/openai';
 import { AI_ADMIN_GENERATE_MODEL } from '@/lib/ai/models';
 import { getOpenAIApiKey } from '@/lib/env';
@@ -243,7 +244,7 @@ DO NOT include markdownContent. This endpoint is stubs only.
         { role: 'user', content: userMessage },
       ],
       response_format: { type: 'json_object' },
-      max_tokens: 16000,
+      ...chatCompletionTokenLimit(16000),
     });
 
     const rawText = response.choices[0].message.content?.trim() || '{}';

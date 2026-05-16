@@ -99,8 +99,10 @@ export function AIPanel({
         }),
       });
 
-      if (!res.ok) throw new Error('AI request failed');
-      const data = await res.json();
+      const data = (await res.json()) as { reply?: string; error?: string };
+      if (!res.ok) {
+        throw new Error(data.error || 'AI request failed');
+      }
 
       addMessage(questionId, {
         role: 'assistant',
