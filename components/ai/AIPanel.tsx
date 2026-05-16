@@ -6,7 +6,6 @@ import { X, Send, User, Trash2, AlertCircle, RefreshCcw } from 'lucide-react';
 import { MarkdownRenderer } from '@/components/markdown/MarkdownRenderer';
 import clsx from 'clsx';
 import { useAIStore } from '@/store/aiStore';
-import { useOnlineStatus } from '@/lib/hooks/useOnlineStatus';
 import { AI_CHAT_LIMITS } from '@/lib/ai/chat-limits';
 import Image from 'next/image';
 
@@ -59,7 +58,6 @@ export function AIPanel({
   } = useAIStore();
   const [input, setInput] = useState('');
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
-  const online = useOnlineStatus();
 
   const history = useMemo(
     () => messages[questionId] || [],
@@ -73,10 +71,6 @@ export function AIPanel({
   }, [history.length, panelOpen]);
 
   const sendChat = async (userMessage: string, priorHistory: Message[]) => {
-    if (!online) {
-      setError('AI assistant needs an internet connection.');
-      return;
-    }
     if (userMessage.length > AI_CHAT_LIMITS.maxUserMessageChars) {
       setError('Message is too long.');
       return;
@@ -110,12 +104,7 @@ export function AIPanel({
         content: data.reply || 'No response.',
       });
     } catch (e: unknown) {
-      const message = !navigator.onLine
-        ? 'You are offline. AI assistant needs internet.'
-        : e instanceof Error
-          ? e.message
-          : 'AI request failed';
-      setError(message);
+      setError(e instanceof Error ? e.message : 'AI request failed');
     } finally {
       setLoading(false);
     }
@@ -199,9 +188,8 @@ export function AIPanel({
                 Topic study assistant
               </p>
               <p className="text-xs text-muted-foreground max-w-[280px] leading-relaxed">
-                {online
-                  ? 'Ask for clarity, hints, what interviewers probe, or a mock exchange — all grounded in this topic and section.'
-                  : 'You are offline. Study content still works; connect to use the AI assistant.'}
+                Ask for clarity, hints, what interviewers probe, or a mock
+                exchange — all grounded in this topic and section.
               </p>
             </div>
 
@@ -210,7 +198,7 @@ export function AIPanel({
                 <button
                   key={item.label}
                   type="button"
-                  disabled={!online || loading}
+                  disabled={loading}
                   onClick={() => handleSuggestedPrompt(item.message)}
                   className={clsx(
                     'flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold transition-all border group',
@@ -326,11 +314,9 @@ export function AIPanel({
                 handleSubmit(e as unknown as React.FormEvent);
               }
             }}
-            placeholder={
-              online ? 'Ask about this topic...' : 'Offline — AI needs internet'
-            }
+            placeholder="Ask about this topic..."
             className="w-full bg-background border rounded-2xl pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none min-h-[44px] max-h-32"
-            disabled={loading || !online}
+            disabled={loading}
             rows={1}
             maxLength={AI_CHAT_LIMITS.maxUserMessageChars}
           />
@@ -338,7 +324,7 @@ export function AIPanel({
             onClick={() =>
               handleSubmit({ preventDefault: () => {} } as React.FormEvent)
             }
-            disabled={!input.trim() || loading || !online}
+            disabled={!input.trim() || loading}
             className="absolute right-2 bottom-2.5 p-1.5 rounded-full bg-primary text-primary-foreground disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground transition-colors"
           >
             <Send size={16} />

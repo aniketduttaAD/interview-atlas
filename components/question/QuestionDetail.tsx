@@ -137,7 +137,7 @@ export function QuestionDetail({ question, content }: QuestionDetailProps) {
       className={clsx(
         'flex min-h-full flex-col',
         'pb-[calc(3.5rem+env(safe-area-inset-bottom,0px))] md:pb-14',
-        panelOpen && 'sm:pr-[400px] md:pr-[450px]',
+        online && panelOpen && 'sm:pr-[400px] md:pr-[450px]',
       )}
     >
       <header className="border-b bg-muted/40">

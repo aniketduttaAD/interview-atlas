@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { useOfflineLibrary } from '@/lib/offline/use-offline-library';
-import { OfflineIndicator } from './OfflineIndicator';
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
@@ -26,7 +26,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <OfflineIndicator />
       {/* Unified Navbar */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl shrink-0">
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4 md:px-8">
