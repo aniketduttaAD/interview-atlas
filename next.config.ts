@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 /** Shell routes only; topic URLs are cached at runtime after sync / navigation. */
 function loadOfflinePrecacheEntries(): { url: string; revision: string }[] {
   const buildId = process.env.NEXT_BUILD_ID ?? randomUUID();
-  const routes = ['/', '/progress', '/bookmarks', '/~offline'];
+  const routes = ['/', '/progress', '/bookmarks'];
   return routes.map((url) => ({ url, revision: buildId }));
 }
 

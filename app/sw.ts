@@ -31,19 +31,20 @@ const serwist = new Serwist({
         networkTimeoutSeconds: 10,
       }),
     },
-    // Do not cache App Router navigations or RSC — avoids stale/404 pages in new tabs.
+    // Cache pages visited while online so repeat opens work offline (no /~offline redirect).
+    {
+      matcher: ({ request, url }) =>
+        request.mode === 'navigate' &&
+        url.origin === self.location.origin &&
+        !url.pathname.startsWith('/api/') &&
+        !url.pathname.startsWith('/admin'),
+      handler: new NetworkFirst({
+        cacheName: 'document-pages',
+        networkTimeoutSeconds: 5,
+      }),
+    },
     ...defaultCache,
   ],
-  fallbacks: {
-    entries: [
-      {
-        url: '/~offline',
-        matcher({ request }) {
-          return request.destination === 'document';
-        },
-      },
-    ],
-  },
 });
 
 serwist.addEventListeners();
