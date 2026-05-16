@@ -25,9 +25,10 @@ export function searchQuestions(
   index: Fuse<Question>,
   query: string,
 ): SearchResult[] {
-  if (!query) return [];
+  const trimmed = query.trim();
+  if (!trimmed) return [];
 
-  return index.search(query).map((result) => {
+  return index.search(trimmed).map((result) => {
     const q = result.item;
     return {
       ...q,
