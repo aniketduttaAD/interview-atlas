@@ -11,16 +11,15 @@ import { cn } from '@/lib/utils';
 
 interface SectionClientProps {
   sectionKey: string;
+  /** From server so SSR matches hydration before offline library loads. */
+  sectionMeta: AdminSection;
 }
 
-export function SectionClient({ sectionKey }: SectionClientProps) {
-  const { questions: allQuestions, sections } = useOfflineLibrary();
+export function SectionClient({ sectionKey, sectionMeta }: SectionClientProps) {
+  const { questions: allQuestions } = useOfflineLibrary();
   const questions = useMemo(
     () => allQuestions.filter((q) => q.section === sectionKey),
     [allQuestions, sectionKey],
-  );
-  const sectionMeta = (sections as AdminSection[]).find(
-    (s) => s.key === sectionKey,
   );
   const { difficulty, status, setDifficulty, setStatus, resetFilters } =
     useFilterStore();
@@ -32,8 +31,6 @@ export function SectionClient({ sectionKey }: SectionClientProps) {
   useEffect(() => {
     if ((status as string) === 'todo') setStatus('all');
   }, [status, setStatus]);
-
-  if (!sectionMeta) return <div className="p-8">Section not found.</div>;
 
   const categories = Array.from(
     new Set(questions.map((q) => q.category)),

@@ -1,4 +1,3 @@
-import path from 'path';
 import type { Question } from '@/types/question';
 import type { AppCatalog } from '@/lib/data/catalog-client';
 import {
@@ -13,49 +12,12 @@ import {
   readLibrarySnapshot,
   writeLibrarySnapshot,
 } from '@/lib/blob/library-snapshot';
-import {
-  buildMarkdownWritesPayload,
-  type MarkdownWritesPayload,
-} from './commit-payload';
-
-function markdownStub(q: Question & { markdownContent?: string }): {
-  path: string;
-  content: string;
-} {
-  const rel = path.join('content', q.markdownPath).replace(/\\/g, '/');
-  return {
-    path: rel,
-    content: `# ${q.title}\n\n> Content pending generation. Use the AI generator to populate this topic.\n\n## Summary\nAdd content here.\n`,
-  };
-}
-
-async function appendMissingMarkdownStubs(
-  payload: MarkdownWritesPayload,
-  content: (Question & { markdownContent?: string })[],
-  blobContentById: Record<string, string>,
-): Promise<void> {
-  for (const q of content) {
-    const hasRealContent =
-      typeof q.markdownContent === 'string' &&
-      q.markdownContent.trim().length > 80;
-    if (hasRealContent) continue;
-
-    const stub = markdownStub(q);
-    if (payload.writes.some((w) => w.path === stub.path)) continue;
-
-    const meta = sanitizeQuestionForStorage(
-      q as Question & Record<string, unknown>,
-    );
-    const existing = blobContentById[meta.id]?.trim() ?? '';
-    if (existing.length > 80) continue;
-
-    payload.writes.push(stub);
-  }
-}
+import { buildMarkdownWritesForCommit } from './commit-payload';
+import { normalizeSectionForCommit } from './normalize-question-for-commit';
 
 async function buildCatalogWithSectionUpdate(
   section: string,
-  content: (Question & { markdownContent?: string })[],
+  content: Question[],
 ): Promise<AppCatalog> {
   const base = await loadResolvedCatalog();
   const sanitized = content.map((q) =>
@@ -87,20 +49,42 @@ async function buildCatalogWithSectionUpdate(
   };
 }
 
+export interface CommitSectionResult {
+  catalog: AppCatalog;
+  stats: {
+    section: string;
+    topics: number;
+    withContent: number;
+    placeholders: number;
+  };
+}
+
 /** Persist the library as a single private Vercel Blob snapshot. */
 export async function commitSectionContent(
   section: string,
   content: (Question & { markdownContent?: string })[],
-): Promise<{ catalog: AppCatalog }> {
+): Promise<CommitSectionResult> {
   assertContentStoreWritable();
+
+  const normalized = normalizeSectionForCommit(section, content);
+  const catalogQuestions = normalized.map((q) => {
+    const meta: Question & Record<string, unknown> = { ...q };
+    delete meta.markdownContent;
+    return sanitizeQuestionForStorage(meta);
+  });
 
   const prev = await readLibrarySnapshot();
   const blobContentForStubs = prev?.contentById ?? {};
 
-  const payload = buildMarkdownWritesPayload(content);
-  await appendMissingMarkdownStubs(payload, content, blobContentForStubs);
+  const { payload, stats } = buildMarkdownWritesForCommit(
+    normalized,
+    blobContentForStubs,
+  );
 
-  const catalog = await buildCatalogWithSectionUpdate(section, content);
+  const catalog = await buildCatalogWithSectionUpdate(
+    section,
+    catalogQuestions,
+  );
 
   const contentBundle = { byId: { ...(prev?.contentById ?? {}) } };
   pruneContentBundleForCatalog(contentBundle, catalog);
@@ -113,5 +97,13 @@ export async function commitSectionContent(
     contentById: contentBundle.byId,
   });
 
-  return { catalog };
+  return {
+    catalog,
+    stats: {
+      section,
+      topics: stats.total,
+      withContent: stats.withContent,
+      placeholders: stats.placeholders,
+    },
+  };
 }

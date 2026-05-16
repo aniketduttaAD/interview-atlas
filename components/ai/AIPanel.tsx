@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Message } from '@/types/ai';
 import { X, Send, User, Trash2, AlertCircle, RefreshCcw } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import { MarkdownRenderer } from '@/components/markdown/MarkdownRenderer';
 import clsx from 'clsx';
 import { useAIStore } from '@/store/aiStore';
 import { useOnlineStatus } from '@/lib/hooks/useOnlineStatus';
@@ -265,7 +265,7 @@ export function AIPanel({
                   {msg.role === 'user' ? (
                     msg.content
                   ) : (
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    <MarkdownRenderer content={msg.content} />
                   )}
                 </div>
               </div>

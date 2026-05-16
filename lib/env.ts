@@ -19,8 +19,7 @@ export function getCommitStoreStatus(): {
     return {
       mode,
       canSave: true,
-      message:
-        'Saves to Vercel Blob (private snapshot). Learners pick up changes after an online sync — no redeploy required for content. Service worker precache still reflects the last deployment.',
+      message: 'Learners pick up changes after an online sync',
     };
   }
 

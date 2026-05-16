@@ -167,4 +167,33 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  .mermaid-scroll {
+    scrollbar-width: thin;
+  }
+
+  .mermaid-scroll-inner {
+    margin-inline: auto;
+  }
+
+  .mermaid-diagram svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .mermaid-diagram .node rect,
+  .mermaid-diagram .node polygon,
+  .mermaid-diagram .node circle {
+    stroke-width: 1.25px;
+  }
+
+  .mermaid-diagram .edgeLabel {
+    font-size: 12px;
+  }
+
+  .mermaid-diagram .label {
+    font-size: 13px;
+    line-height: 1.35;
+  }
 }

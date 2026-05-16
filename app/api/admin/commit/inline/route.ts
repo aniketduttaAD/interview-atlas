@@ -27,6 +27,12 @@ export async function POST(req: NextRequest) {
 
     const result = await commitSectionContent(section, content);
 
+    const { stats } = result;
+    const detail =
+      stats.placeholders > 0
+        ? ` ${stats.withContent} with content, ${stats.placeholders} placeholder${stats.placeholders === 1 ? '' : 's'}.`
+        : ` ${stats.withContent} topic${stats.withContent === 1 ? '' : 's'} with content.`;
+
     return NextResponse.json({
       success: true,
       mode: 'blob',
@@ -35,8 +41,8 @@ export async function POST(req: NextRequest) {
         questions: result.catalog.questions.length,
         generatedAt: result.catalog.generatedAt,
       },
-      message:
-        'Saved to Vercel Blob. Users get updates after an online sync (no redeploy needed for content).',
+      stats,
+      message: `Saved ${stats.topics} topic${stats.topics === 1 ? '' : 's'} for "${stats.section}".${detail} Learners sync while online.`,
     });
   } catch (error: unknown) {
     console.error('Commit failed:', error);

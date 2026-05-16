@@ -33,6 +33,16 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  turbopack: {},
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/generate',
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {

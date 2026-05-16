@@ -1,6 +1,9 @@
 import path from 'path';
 import type { Question } from '@/types/question';
-import { sanitizeQuestionForStorage } from '@/lib/data/sanitize-question';
+import {
+  isPlaceholderMarkdown,
+  placeholderMarkdownForTitle,
+} from '@/lib/admin/content-placeholder';
 
 export interface CommitFileWrite {
   path: string;
@@ -11,28 +14,61 @@ export interface MarkdownWritesPayload {
   writes: CommitFileWrite[];
 }
 
-/** Logical markdown paths under content/ merged into the Blob snapshot. */
-export function buildMarkdownWritesPayload(
+export interface MarkdownWriteStats {
+  total: number;
+  withContent: number;
+  placeholders: number;
+}
+
+function contentPathForQuestion(q: Question): string {
+  const mdRel = q.markdownPath.replace(/\\/g, '/');
+  return path.join('content', mdRel).replace(/\\/g, '/');
+}
+
+/**
+ * One markdown write per topic in the section: real body, preserved Blob body, or placeholder.
+ */
+export function buildMarkdownWritesForCommit(
   content: (Question & { markdownContent?: string })[],
-): MarkdownWritesPayload {
+  blobContentById: Record<string, string>,
+): { payload: MarkdownWritesPayload; stats: MarkdownWriteStats } {
   const writes: CommitFileWrite[] = [];
+  let withContent = 0;
+  let placeholders = 0;
 
   for (const q of content) {
-    const metadata = sanitizeQuestionForStorage(
-      q as Question & Record<string, unknown>,
-    );
-    const mdRel = metadata.markdownPath.replace(/\\/g, '/');
-    const hasRealContent =
-      typeof q.markdownContent === 'string' &&
-      q.markdownContent.trim().length > 80;
+    const filePath = contentPathForQuestion(q);
+    const fromEditor = q.markdownContent?.trim();
+    const fromBlob = blobContentById[q.id]?.trim();
 
-    if (hasRealContent && q.markdownContent) {
-      writes.push({
-        path: path.join('content', mdRel).replace(/\\/g, '/'),
-        content: q.markdownContent.trim() + '\n',
-      });
+    if (fromEditor && !isPlaceholderMarkdown(fromEditor)) {
+      writes.push({ path: filePath, content: fromEditor + '\n' });
+      withContent++;
+      continue;
     }
+
+    if (fromBlob && !isPlaceholderMarkdown(fromBlob)) {
+      writes.push({
+        path: filePath,
+        content: fromBlob.endsWith('\n') ? fromBlob : `${fromBlob}\n`,
+      });
+      withContent++;
+      continue;
+    }
+
+    writes.push({
+      path: filePath,
+      content: placeholderMarkdownForTitle(q.title),
+    });
+    placeholders++;
   }
 
-  return { writes };
+  return {
+    payload: { writes },
+    stats: {
+      total: content.length,
+      withContent,
+      placeholders,
+    },
+  };
 }

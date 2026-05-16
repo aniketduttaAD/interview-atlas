@@ -23,10 +23,10 @@ export default async function SectionPage({ params }: PageProps) {
   const sectionKey = resolvedParams.section as SectionKey;
 
   const sections = (await getSectionsServer()) as AdminSection[];
-  const isValidSection = sections.some((s) => s.key === sectionKey);
-  if (!isValidSection) {
+  const sectionMeta = sections.find((s) => s.key === sectionKey);
+  if (!sectionMeta) {
     notFound();
   }
 
-  return <SectionClient sectionKey={sectionKey} />;
+  return <SectionClient sectionKey={sectionKey} sectionMeta={sectionMeta} />;
 }
