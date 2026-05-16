@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
-import { writeCatalogFile } from '@/lib/data/build-catalog';
-import { assertContentStoreWritable } from '@/lib/env';
+import { createEmptyCatalog } from '@/lib/data/catalog-client';
+import { getCommitStoreStatus } from '@/lib/env';
+import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import {
+  LIBRARY_SNAPSHOT_VERSION,
+  readLibrarySnapshot,
+  writeLibrarySnapshot,
+} from '@/lib/blob/library-snapshot';
 
 export async function POST(req: NextRequest) {
+  const authError = validateAdminSecret(req);
+  if (authError) return authError;
+
   try {
     const { name } = await req.json();
 
@@ -28,19 +35,48 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    assertContentStoreWritable();
+    const store = getCommitStoreStatus();
+    if (!store.canSave) {
+      return NextResponse.json(
+        { error: store.message, mode: store.mode },
+        { status: 503 },
+      );
+    }
 
-    const dataPath = path.join(process.cwd(), 'data', key);
-    const contentPath = path.join(process.cwd(), 'content', key);
+    const snap = await readLibrarySnapshot();
+    const catalogBase = snap?.catalog ?? createEmptyCatalog();
 
-    // Create directories
-    await fs.mkdir(dataPath, { recursive: true });
-    await fs.mkdir(contentPath, { recursive: true });
+    if (catalogBase.sections.some((s) => s.key === key)) {
+      return NextResponse.json(
+        { error: 'A domain with this key already exists.' },
+        { status: 400 },
+      );
+    }
 
-    // Create a dummy category JSON if needed, or just let it be empty
-    // Scanning logic works with empty directories as well.
+    const generatedAt = new Date().toISOString();
+    const catalog = {
+      ...catalogBase,
+      generatedAt,
+      sections: [
+        ...catalogBase.sections,
+        {
+          key,
+          label: name.toUpperCase(),
+          color: 'primary' as const,
+          icon: 'FolderTree' as const,
+          questionCount: 0,
+        },
+      ].sort((a, b) => a.key.localeCompare(b.key)),
+    };
 
-    const catalog = await writeCatalogFile();
+    const contentById = snap?.contentById ?? {};
+
+    await writeLibrarySnapshot({
+      version: LIBRARY_SNAPSHOT_VERSION,
+      generatedAt,
+      catalog,
+      contentById,
+    });
 
     return NextResponse.json({
       success: true,
@@ -58,7 +94,6 @@ export async function POST(req: NextRequest) {
   } catch (error: unknown) {
     console.error('Failed to create section:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';
-    const status = message.includes('not available on Vercel') ? 503 : 500;
-    return NextResponse.json({ error: message }, { status });
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

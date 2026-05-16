@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
+import { AdminSessionGate } from '@/components/admin/AdminSessionGate';
 import Image from 'next/image';
 
 const NAV_ITEMS = [
@@ -66,6 +67,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <div className="w-px h-4 bg-border mx-1 hidden sm:block" />
+            <button
+              type="button"
+              onClick={async () => {
+                await fetch('/api/admin/logout', {
+                  method: 'POST',
+                  credentials: 'include',
+                });
+                window.location.reload();
+              }}
+              className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all"
+            >
+              Sign out
+            </button>
             <Link
               href="/"
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/5 transition-all"
@@ -78,7 +92,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       </header>
 
       <main className="flex-1 overflow-auto bg-muted/10">
-        <div className="min-h-full">{children}</div>
+        <div className="min-h-full">
+          <AdminSessionGate>{children}</AdminSessionGate>
+        </div>
       </main>
     </div>
   );

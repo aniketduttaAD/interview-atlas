@@ -1,6 +1,5 @@
 import type { AdminSection } from '@/types/admin';
 import type { Question } from '@/types/question';
-import catalog from './catalog.generated.json';
 
 export interface AppCatalog {
   generatedAt: string;
@@ -8,18 +7,17 @@ export interface AppCatalog {
   questions: Question[];
 }
 
-const data = catalog as AppCatalog;
+/** Offline bootstrap before the first successful `/api/data/*` sync (empty shell). */
+export const BUNDLED_FALLBACK_CATALOG: AppCatalog = {
+  generatedAt: '1970-01-01T00:00:00.000Z',
+  sections: [],
+  questions: [],
+};
 
-/** Sections metadata — available synchronously (offline-safe). */
-export function getCatalogSections(): AdminSection[] {
-  return data.sections;
-}
-
-/** All question stubs — available synchronously (offline-safe). */
-export function getCatalogQuestions(): Question[] {
-  return data.questions;
-}
-
-export function getCatalogGeneratedAt(): string {
-  return data.generatedAt;
+export function createEmptyCatalog(): AppCatalog {
+  return {
+    generatedAt: new Date().toISOString(),
+    sections: [],
+    questions: [],
+  };
 }

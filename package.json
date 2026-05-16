@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "catalog": "tsx scripts/generate-catalog.ts",
-    "dev": "pnpm catalog && next dev",
-    "build": "pnpm catalog && next build --webpack",
+    "blob:seed": "tsx scripts/seed-blob.ts",
+    "dev": "next dev",
+    "build": "next build --webpack",
     "start": "next start",
     "format:lint:check": "prettier --write . && eslint . --fix && tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
     "@serwist/next": "^9.0.0",
+    "@vercel/blob": "^2.3.3",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "fuse.js": "^7.3.0",

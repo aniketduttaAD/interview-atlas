@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { Question } from '@/types/question';
 import {
   getOpenAI,
   ADMIN_ORCHESTRATOR_PROMPT,
   ADMIN_MARKDOWN_CONTENT_RULES,
   getSectionContentTemplate,
 } from '@/lib/ai/openai';
+import { AI_ADMIN_GENERATE_MODEL } from '@/lib/ai/models';
 import { getOpenAIApiKey } from '@/lib/env';
+import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
 
 const CONTENT_SYSTEM_PROMPT = `${ADMIN_ORCHESTRATOR_PROMPT}\n\n${ADMIN_MARKDOWN_CONTENT_RULES}`;
-import { Question } from '@/types/question';
 
 /**
  * STEP 2: Per-Topic Content Generation
@@ -17,6 +19,9 @@ import { Question } from '@/types/question';
  */
 
 export async function POST(req: NextRequest) {
+  const authError = validateAdminSecret(req);
+  if (authError) return authError;
+
   try {
     const { stub, section, allStubs } = await req.json();
 
@@ -78,7 +83,7 @@ ${contentTemplate}
 
     // For markdown generation, we don't need json_object mode
     const response = await getOpenAI().chat.completions.create({
-      model: 'gpt-4o',
+      model: AI_ADMIN_GENERATE_MODEL,
       messages: [
         { role: 'system', content: CONTENT_SYSTEM_PROMPT },
         { role: 'user', content: systemContext },

@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import clsx from 'clsx';
 import { useAIStore } from '@/store/aiStore';
 import { useOnlineStatus } from '@/lib/hooks/useOnlineStatus';
+import { AI_CHAT_LIMITS } from '@/lib/ai/chat-limits';
 import Image from 'next/image';
 
 interface AIPanelProps {
@@ -74,6 +75,10 @@ export function AIPanel({
   const sendChat = async (userMessage: string, priorHistory: Message[]) => {
     if (!online) {
       setError('AI assistant needs an internet connection.');
+      return;
+    }
+    if (userMessage.length > AI_CHAT_LIMITS.maxUserMessageChars) {
+      setError('Message is too long.');
       return;
     }
     setLoading(true);
@@ -324,6 +329,7 @@ export function AIPanel({
             className="w-full bg-background border rounded-2xl pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none min-h-[44px] max-h-32"
             disabled={loading || !online}
             rows={1}
+            maxLength={AI_CHAT_LIMITS.maxUserMessageChars}
           />
           <button
             onClick={() =>

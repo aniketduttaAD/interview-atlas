@@ -27,6 +27,9 @@
 # production
 /build
 
+# Cursor/Claude local worktrees (not part of the app)
+.claude/
+
 # local admin staging
 /staging/
 .pnpm-store/

@@ -1,31 +1,44 @@
 import { getOpenAI, CHAT_SYSTEM_PROMPT } from '@/lib/ai/openai';
+import { AI_CHAT_MODEL } from '@/lib/ai/models';
 import { getOpenAIApiKey } from '@/lib/env';
+import {
+  enforceAiChatSameOrigin,
+  parseAndValidateChatBody,
+} from '@/lib/api/ai-chat-security';
 import { NextRequest, NextResponse } from 'next/server';
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
 
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
+  const originBlock = enforceAiChatSameOrigin(req);
+  if (originBlock) return originBlock;
+
+  const contentLength = req.headers.get('content-length');
+  if (contentLength && Number(contentLength) > 512 * 1024) {
+    return NextResponse.json({ error: 'Payload too large' }, { status: 413 });
+  }
+
+  if (!getOpenAIApiKey()) {
+    return NextResponse.json({
+      reply: 'AI is disabled: OPENAI_API_KEY is not set.',
+    });
+  }
+
+  let body: unknown;
   try {
-    const {
-      questionTitle,
-      questionContent,
-      sectionLabel,
-      userMessage,
-      history = [],
-    } = await req.json();
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
 
-    if (!userMessage?.trim()) {
-      return NextResponse.json(
-        { error: 'userMessage is required.' },
-        { status: 400 },
-      );
-    }
+  const parsed = parseAndValidateChatBody(body);
+  if (!parsed.ok) return parsed.response;
 
-    if (!getOpenAIApiKey()) {
-      return NextResponse.json({
-        reply: 'AI is disabled: OPENAI_API_KEY is not set.',
-      });
-    }
+  const { questionTitle, questionContent, sectionLabel, userMessage, history } =
+    parsed.data;
 
+  try {
     const systemContent = `${CHAT_SYSTEM_PROMPT}
 
 ## TOPIC CONTEXT
@@ -35,7 +48,7 @@ export async function POST(req: NextRequest) {
 **Reference material (ground answers in this)**:
 ${questionContent || '(No content provided)'}`;
 
-    const priorTurns = (history as { role: string; content: string }[])
+    const priorTurns = history
       .filter((m) => m.role === 'user' || m.role === 'assistant')
       .map(
         (m): ChatCompletionMessageParam => ({
@@ -47,12 +60,13 @@ ${questionContent || '(No content provided)'}`;
     const messages: ChatCompletionMessageParam[] = [
       { role: 'system', content: systemContent },
       ...priorTurns,
-      { role: 'user', content: userMessage.trim() },
+      { role: 'user', content: userMessage },
     ];
 
     const response = await getOpenAI().chat.completions.create({
-      model: 'gpt-4o',
+      model: AI_CHAT_MODEL,
       messages,
+      max_tokens: 4096,
     });
 
     return NextResponse.json({ reply: response.choices[0].message.content });

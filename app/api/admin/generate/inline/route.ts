@@ -4,7 +4,9 @@ import {
   ADMIN_ORCHESTRATOR_PROMPT,
   ADMIN_STUB_JSON_RULES,
 } from '@/lib/ai/openai';
+import { AI_ADMIN_GENERATE_MODEL } from '@/lib/ai/models';
 import { getOpenAIApiKey } from '@/lib/env';
+import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
 import { Question } from '@/types/question';
 
 /**
@@ -183,6 +185,9 @@ function sanitizeStub(item: Partial<Question>, section: string): Question {
 }
 
 export async function POST(req: NextRequest) {
+  const authError = validateAdminSecret(req);
+  if (authError) return authError;
+
   try {
     const { prompt, currentContent, section } = await req.json();
 
@@ -231,7 +236,7 @@ DO NOT include markdownContent. This endpoint is stubs only.
     `.trim();
 
     const response = await getOpenAI().chat.completions.create({
-      model: 'gpt-4o',
+      model: AI_ADMIN_GENERATE_MODEL,
       messages: [
         { role: 'system', content: STUB_SYSTEM_PROMPT },
         { role: 'user', content: contextMessage },

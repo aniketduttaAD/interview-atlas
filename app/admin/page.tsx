@@ -18,6 +18,7 @@ import { createSearchIndex, searchQuestions } from '@/lib/search/fuzzy';
 import { useUIStore } from '@/store/uiStore';
 import { Question } from '@/types/question';
 import { AdminSection } from '@/types/admin';
+import { adminCredentials, adminPostJsonInit } from '@/lib/admin/admin-fetch';
 
 export default function AdminRootPage() {
   const { sections } = useUIStore();
@@ -35,7 +36,10 @@ export default function AdminRootPage() {
   const loadData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/admin/content/latest?limit=2000');
+      const res = await fetch(
+        '/api/admin/content/latest?limit=2000',
+        adminCredentials(),
+      );
       const data = await res.json();
       setAllData(data);
     } catch (err) {
@@ -68,10 +72,10 @@ export default function AdminRootPage() {
     if (!newDomainName.trim()) return;
     setIsCreating(true);
     try {
-      const res = await fetch('/api/admin/section/create', {
-        method: 'POST',
-        body: JSON.stringify({ name: newDomainName }),
-      });
+      const res = await fetch(
+        '/api/admin/section/create',
+        adminPostJsonInit({ name: newDomainName }),
+      );
       if (res.ok) {
         setIsAddDomainOpen(false);
         setNewDomainName('');

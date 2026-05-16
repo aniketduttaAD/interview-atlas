@@ -27,6 +27,7 @@ import clsx from 'clsx';
 import * as Dialog from '@radix-ui/react-dialog';
 import { StubItem, AdminSection } from '@/types/admin';
 import { MarkdownRenderer } from '@/components/markdown/MarkdownRenderer';
+import { adminCredentials, adminPostJsonInit } from '@/lib/admin/admin-fetch';
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function difficultyColor(d: string) {
@@ -82,6 +83,18 @@ function GeneratePageContent() {
   const [isGeneratingStubs, setIsGeneratingStubs] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [storeStatus, setStoreStatus] = useState<{
+    mode: string;
+    message: string;
+    canSave: boolean;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/admin/store-status', adminCredentials())
+      .then((r) => r.json())
+      .then(setStoreStatus)
+      .catch(() => {});
+  }, []);
 
   // Add Stub state
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -141,6 +154,7 @@ function GeneratePageContent() {
         try {
           const res = await fetch(
             `/api/admin/content/section?section=${selectedSection}`,
+            adminCredentials(),
           );
           if (!res.ok) throw new Error('Failed to load');
           const data: (Question & { markdownContent?: string })[] =
@@ -169,13 +183,18 @@ function GeneratePageContent() {
     if (!newSectionName.trim()) return;
     const t = toast.loading('Creating new domain...');
     try {
-      const res = await fetch('/api/admin/section/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newSectionName }),
-      });
-      if (!res.ok) throw new Error('Failed to create section');
-      const data = await res.json();
+      const res = await fetch(
+        '/api/admin/section/create',
+        adminPostJsonInit({ name: newSectionName }),
+      );
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(
+          typeof data.error === 'string'
+            ? data.error
+            : 'Failed to create section',
+        );
+      }
 
       const newSection = data.section;
       setSelectedSection(newSection.key);
@@ -197,15 +216,14 @@ function GeneratePageContent() {
     const t = toast.loading('Orchestrating stubs…');
 
     try {
-      const res = await fetch('/api/admin/generate/inline', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const res = await fetch(
+        '/api/admin/generate/inline',
+        adminPostJsonInit({
           prompt,
           currentContent: stubs,
           section: selectedSection,
         }),
-      });
+      );
       if (!res.ok) throw new Error('Stub generation failed.');
       const data = await res.json();
 
@@ -259,6 +277,7 @@ function GeneratePageContent() {
     try {
       const res = await fetch(
         `/api/admin/content/markdown?path=${encodeURIComponent(stub.markdownPath)}`,
+        adminCredentials(),
       );
       if (!res.ok) throw new Error('not found');
       const { markdownContent } = await res.json();
@@ -294,10 +313,9 @@ function GeneratePageContent() {
     );
 
     try {
-      const res = await fetch('/api/admin/generate/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const res = await fetch(
+        '/api/admin/generate/content',
+        adminPostJsonInit({
           stub,
           section: selectedSection,
           allStubs: stubs.map((s) => ({
@@ -305,7 +323,7 @@ function GeneratePageContent() {
             category: s.category,
           })),
         }),
-      });
+      );
       if (!res.ok) throw new Error('Content generation failed.');
       const { markdownContent } = await res.json();
       setStubs((prev) =>
@@ -361,26 +379,36 @@ function GeneratePageContent() {
   // ── Commit ────────────────────────────────────────────────────────────────────
   const handleCommit = async () => {
     if (!selectedSection || isSaving) return;
+    if (storeStatus && !storeStatus.canSave) {
+      toast.error(storeStatus.message);
+      return;
+    }
     setIsSaving(true);
-    const t = toast.loading('Saving to data/ and content/…');
+    const loadingMsg = 'Saving library snapshot to Vercel Blob…';
+    const t = toast.loading(loadingMsg);
     try {
-      const res = await fetch('/api/admin/commit/inline', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ section: selectedSection, content: stubs }),
-      });
-      if (!res.ok) throw new Error('Commit failed.');
-      const data = await res.json();
+      const res = await fetch(
+        '/api/admin/commit/inline',
+        adminPostJsonInit({ section: selectedSection, content: stubs }),
+      );
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(
+          typeof data.error === 'string'
+            ? data.error
+            : `Save failed (${res.status})`,
+        );
+      }
       const catalogMsg = data.catalog
         ? ` Catalog updated (${data.catalog.questions} topics).`
         : '';
-      toast.success(
-        `Saved to data/ and content/.${catalogMsg} Rebuild or refresh online to see new routes in the study app.`,
-        { id: t, duration: 6000 },
-      );
+      const successMsg =
+        (data.message as string) ||
+        `Saved to Vercel Blob.${catalogMsg} Tell learners to sync while online (no redeploy needed for content).`;
+      toast.success(successMsg, { id: t, duration: 8000 });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Sync failed.';
-      toast.error(message, { id: t });
+      toast.error(message, { id: t, duration: 10000 });
     } finally {
       setIsSaving(false);
     }
@@ -482,7 +510,7 @@ function GeneratePageContent() {
                   </h3>
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mt-auto pt-2 relative z-10">
                     <p className="text-[8px] text-muted-foreground/60 uppercase tracking-widest font-bold break-all">
-                      /data/{section.key}
+                      /{section.key}
                     </p>
                     <span className="text-[8px] font-black text-primary/60">
                       {section.questionCount || 0} nodes
@@ -569,6 +597,18 @@ function GeneratePageContent() {
             {/* Main Area: Stub list */}
             <div className="min-w-0 flex-1 lg:overflow-y-auto lg:scrollbar-thin">
               <div className="mx-auto max-w-3xl space-y-3 p-4 pb-32 sm:space-y-4 sm:p-6 lg:p-10">
+                {storeStatus && (
+                  <div
+                    className={clsx(
+                      'rounded-xl border px-4 py-3 text-xs leading-relaxed',
+                      storeStatus.canSave
+                        ? 'border-primary/20 bg-primary/5 text-foreground'
+                        : 'border-amber-500/30 bg-amber-500/10 text-amber-950 dark:text-amber-100',
+                    )}
+                  >
+                    {storeStatus.message}
+                  </div>
+                )}
                 <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                     <button
@@ -601,7 +641,11 @@ function GeneratePageContent() {
                     </button>
                     <button
                       onClick={handleCommit}
-                      disabled={isSaving || stubs.length === 0}
+                      disabled={
+                        isSaving ||
+                        stubs.length === 0 ||
+                        storeStatus?.canSave === false
+                      }
                       className="flex items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 text-[9px] font-black uppercase tracking-widest text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-30 sm:px-5"
                     >
                       {isSaving ? (
@@ -609,7 +653,9 @@ function GeneratePageContent() {
                       ) : (
                         <Database className="w-3 h-3" />
                       )}
-                      Sync to Disk
+                      {storeStatus?.canSave
+                        ? 'Sync to Blob'
+                        : 'Blob unavailable'}
                     </button>
                   </div>
                 </div>

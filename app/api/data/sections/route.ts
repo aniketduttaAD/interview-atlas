@@ -5,8 +5,10 @@ export async function GET() {
   try {
     const sections = await getSectionsServer();
     return NextResponse.json(sections);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to load dynamic sections', error);
-    return NextResponse.json([]);
+    const message =
+      error instanceof Error ? error.message : 'Failed to load sections';
+    return NextResponse.json({ error: message }, { status: 503 });
   }
 }

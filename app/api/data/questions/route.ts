@@ -1,27 +1,22 @@
 import { NextResponse } from 'next/server';
-import { getAllData } from '@/lib/data/loader';
-import fs from 'fs/promises';
-import path from 'path';
+import { loadResolvedLibrary } from '@/lib/data/load-resolved-catalog';
 
 export async function GET() {
   try {
-    const questions = await getAllData();
-    const result = [];
+    const { catalog, blobContentById } = await loadResolvedLibrary();
 
-    for (const q of questions) {
-      let content = '';
-      try {
-        const mdPath = path.join(process.cwd(), 'content', q.markdownPath);
-        content = await fs.readFile(mdPath, 'utf8');
-      } catch {
-        // Ignore if markdown file doesn't exist
-      }
+    const result: { q: (typeof catalog.questions)[0]; content: string }[] = [];
 
+    for (const q of catalog.questions) {
+      const content = blobContentById[q.id]?.trim()
+        ? blobContentById[q.id]
+        : '';
       result.push({ q, content });
     }
 
     return NextResponse.json(result);
-  } catch {
-    return NextResponse.json({ error: 'Failed to load data' }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Failed to load data';
+    return NextResponse.json({ error: message }, { status: 503 });
   }
 }

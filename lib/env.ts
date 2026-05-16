@@ -1,18 +1,40 @@
-/** True in Vercel deployments (serverless — no persistent writes to data/). */
-export function isVercel(): boolean {
-  return process.env.VERCEL === '1';
+import { isBlobConfigured } from '@/lib/blob/library-snapshot';
+
+export type CommitStoreMode = 'blob' | 'blocked';
+
+/** Admin commits persist only when a Blob read/write token is configured. */
+export function getCommitStoreMode(): CommitStoreMode {
+  if (isBlobConfigured()) return 'blob';
+  return 'blocked';
 }
 
-export function isProduction(): boolean {
-  return process.env.NODE_ENV === 'production';
+export function getCommitStoreStatus(): {
+  mode: CommitStoreMode;
+  message: string;
+  canSave: boolean;
+} {
+  const mode = getCommitStoreMode();
+
+  if (mode === 'blob') {
+    return {
+      mode,
+      canSave: true,
+      message:
+        'Saves to Vercel Blob (private snapshot). Learners pick up changes after an online sync — no redeploy required for content. Service worker precache still reflects the last deployment.',
+    };
+  }
+
+  return {
+    mode,
+    canSave: false,
+    message:
+      'Saving requires BLOB_READ_WRITE_TOKEN. Link a Blob store on Vercel and run `vercel env pull`, or set the token locally.',
+  };
 }
 
-/** Admin commit / section APIs that write to data/ and content/. */
 export function assertContentStoreWritable(): void {
-  if (isVercel()) {
-    throw new Error(
-      'Content store writes are not available on Vercel. Run admin save from your local machine.',
-    );
+  if (getCommitStoreMode() === 'blocked') {
+    throw new Error(getCommitStoreStatus().message);
   }
 }
 

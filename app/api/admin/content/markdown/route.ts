@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { validateAdminSecret } from '@/lib/admin/require-admin-secret';
+import { loadResolvedLibrary } from '@/lib/data/load-resolved-catalog';
 
-/** Read a single markdown file from content/ by relative path (e.g. golang/concurrency/foo.md). */
+/** Read markdown by relative path (e.g. golang/concurrency/foo.md). Served from Blob snapshot only. */
 export async function GET(req: NextRequest) {
+  const authError = validateAdminSecret(req);
+  if (authError) return authError;
+
   try {
     const filePath = new URL(req.url).searchParams.get('path');
 
@@ -12,16 +15,26 @@ export async function GET(req: NextRequest) {
     }
 
     const normalized = filePath.replace(/^\/+/, '').replace(/\.\./g, '');
-    const fullPath = path.join(process.cwd(), 'content', normalized);
 
-    const contentRoot = path.join(process.cwd(), 'content');
-    if (!fullPath.startsWith(contentRoot)) {
-      return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
+    const { catalog, blobContentById } = await loadResolvedLibrary();
+    const question = catalog.questions.find(
+      (q) => q.markdownPath.replace(/\\/g, '/') === normalized,
+    );
+
+    if (question && blobContentById[question.id]?.trim()) {
+      return NextResponse.json({
+        markdownContent: blobContentById[question.id],
+      });
     }
 
-    const markdownContent = await fs.readFile(fullPath, 'utf8');
-    return NextResponse.json({ markdownContent });
+    return NextResponse.json(
+      { error: 'Content not found in snapshot' },
+      { status: 404 },
+    );
   } catch {
-    return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    return NextResponse.json(
+      { error: 'Failed to resolve library' },
+      { status: 503 },
+    );
   }
 }

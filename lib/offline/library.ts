@@ -1,13 +1,9 @@
-import type { AppCatalog } from '@/lib/data/catalog-client';
 import {
-  getCatalogGeneratedAt,
-  getCatalogQuestions,
-  getCatalogSections,
+  BUNDLED_FALLBACK_CATALOG,
+  type AppCatalog,
 } from '@/lib/data/catalog-client';
 import { STORAGE_KEYS } from '@/lib/storage/keys';
 import type { Question } from '@/types/question';
-
-import bundledContent from '@/lib/data/content.generated.json';
 
 /** Full offline payload: metadata + markdown bodies. */
 export interface OfflineLibrary {
@@ -16,14 +12,10 @@ export interface OfflineLibrary {
   syncedAt: string;
 }
 
-const bundledCatalog: AppCatalog = {
-  generatedAt: getCatalogGeneratedAt(),
-  sections: getCatalogSections(),
-  questions: getCatalogQuestions(),
-};
+const bundledCatalog = BUNDLED_FALLBACK_CATALOG;
 
-const bundledContentById = (bundledContent as { byId: Record<string, string> })
-  .byId;
+/** No repo-bundled markdown; bodies arrive after the first successful sync. */
+const bundledContentById: Record<string, string> = {};
 
 export function getBundledLibrary(): OfflineLibrary {
   return {
@@ -43,7 +35,17 @@ export function readStoredLibrary(): OfflineLibrary | null {
     const raw = storage()?.getItem(STORAGE_KEYS.OFFLINE_LIBRARY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as OfflineLibrary;
-    if (!parsed?.catalog?.questions?.length) return null;
+    if (
+      !parsed?.catalog ||
+      typeof parsed.catalog !== 'object' ||
+      !Array.isArray(parsed.catalog.sections) ||
+      !Array.isArray(parsed.catalog.questions) ||
+      typeof parsed.syncedAt !== 'string' ||
+      !parsed.contentById ||
+      typeof parsed.contentById !== 'object'
+    ) {
+      return null;
+    }
     return parsed;
   } catch {
     return null;
@@ -58,7 +60,7 @@ export function writeStoredLibrary(library: OfflineLibrary): void {
   }
 }
 
-/** Prefer newer synced copy; fall back to build-time bundle. */
+/** Prefer newer synced copy; fall back to empty bundled baseline until sync. */
 export function resolveLibrary(stored: OfflineLibrary | null): OfflineLibrary {
   const bundled = getBundledLibrary();
   if (!stored?.syncedAt) return bundled;

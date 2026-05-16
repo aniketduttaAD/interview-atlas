@@ -12,9 +12,9 @@ import {
 
 /**
  * Single offline-first data layer.
- * Online: downloads full catalog + markdown, stores locally.
+ * Online: downloads full catalog + markdown from Blob-backed APIs, stores locally.
  * Reconnect: auto-syncs when `online` fires, tab refocuses, or window gains focus.
- * Offline: reads only from stored (or build-time bundled) library.
+ * Offline: reads stored library only (empty shell until first successful sync).
  */
 export function useOfflineLibrary() {
   const online = useOnlineStatus();

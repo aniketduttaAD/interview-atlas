@@ -1,21 +1,12 @@
 import withSerwistInit from '@serwist/next';
 import type { NextConfig } from 'next';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 
+/** Shell routes only; topic URLs are cached at runtime after sync / navigation. */
 function loadOfflinePrecacheEntries(): { url: string; revision: string }[] {
   const buildId = process.env.NEXT_BUILD_ID ?? randomUUID();
-  try {
-    const routesPath = join(
-      process.cwd(),
-      'lib/data/offline-routes.generated.json',
-    );
-    const routes = JSON.parse(readFileSync(routesPath, 'utf8')) as string[];
-    return routes.map((url) => ({ url, revision: buildId }));
-  } catch {
-    return [{ url: '/~offline', revision: buildId }];
-  }
+  const routes = ['/', '/progress', '/bookmarks', '/~offline'];
+  return routes.map((url) => ({ url, revision: buildId }));
 }
 
 const withSerwist = withSerwistInit({

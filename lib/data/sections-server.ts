@@ -1,13 +1,8 @@
 import type { AdminSection } from '@/types/admin';
-import { buildCatalog } from './build-catalog';
+import { loadResolvedCatalog } from '@/lib/data/load-resolved-catalog';
 
-/** Section list derived from data/ — same source as catalog generation. */
+/** Section list from the Blob-backed catalog. */
 export async function getSectionsServer(): Promise<AdminSection[]> {
-  try {
-    const catalog = await buildCatalog();
-    return catalog.sections;
-  } catch (error) {
-    console.error('Failed to load sections from data/', error);
-    return [];
-  }
+  const catalog = await loadResolvedCatalog();
+  return catalog.sections;
 }
